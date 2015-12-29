@@ -218,7 +218,7 @@ public class ConnectLiftFragment extends BaseFragment {
 			public void errorAuthenticating() {
 				showToast("密码错误,未能连接热点");
 			}
-			
+
 			@Override
 			public void disConnectWifi(String connectedSSID) {
 				String lastConnectedSSID = sharedPreferences.getString("ssid", "");
@@ -261,7 +261,7 @@ public class ConnectLiftFragment extends BaseFragment {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		wifiUtil.registerWifiConnChangeReceiver();
+		wifiUtil.unregisterWifiConnChangeListener();
 	}
 	
 	OnTimeOutListener onTimeOutListener = new OnTimeOutListener() {
