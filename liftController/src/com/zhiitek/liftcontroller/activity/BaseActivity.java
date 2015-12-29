@@ -284,7 +284,6 @@ public abstract class BaseActivity extends FragmentActivity {
 	
 	/**
 	 * 从屏幕底部显示出DatePicker控件
-	 * @param onWheelChangeListener
 	 */
 	protected void showDatePickerPopup(final TextView tv, String defaultStr) {
 		View popouView = View.inflate(this, R.layout.popup_time_select, null);
