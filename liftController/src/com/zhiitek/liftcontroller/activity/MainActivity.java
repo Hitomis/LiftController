@@ -1,11 +1,5 @@
 package com.zhiitek.liftcontroller.activity;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,13 +26,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 
 import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.adapter.BaseAdapterHelper;
 import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
-import com.zhiitek.liftcontroller.components.net.NetWorkHelper;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.db.LiftControllerSqlHelper;
 import com.zhiitek.liftcontroller.fragment.ConnectLiftFragment;
@@ -57,6 +49,13 @@ import com.zhiitek.liftcontroller.views.PromptTopView;
 import com.zhiitek.liftcontroller.views.SimpleSlidingMenu;
 import com.zhiitek.liftcontroller.views.SimpleSlidingMenu.MenuItemHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+import java.util.List;
+
+import cn.jpush.android.api.JPushInterface;
 import de.greenrobot.event.EventBus;
 
 public class MainActivity extends BaseActivity {
