@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linlay_content1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/module_backgroud_color"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:text="根据设备是否绑定选择操作方式"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:id="@+id/blackbox_docking_set_serialport_auto_query"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_choosed_item"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="设备已绑定"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.zhiitek.liftcontroller.views.ToggleButton
+                android:id="@+id/tb_devices_serialport_auto_query"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <com.zhiitek.liftcontroller.views.CustomFormCellView
+            android:id="@+id/blackbox_docking_set_serialport_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app1:header_layout_weight="3"
+            app1:header_text="设备未绑定"
+            app1:header_text_color="@color/text_color"
+            app1:info_layout_weight="7"
+            app1:info_view_type="edittext" >
+        </com.zhiitek.liftcontroller.views.CustomFormCellView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlay_content2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay_content1"
+        android:layout_marginTop="8dp"
+        android:background="@color/module_backgroud_color"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="定制号"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_docking_custom_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:text="0"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="口令号"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_docking_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:text="0"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay_content2"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:text="与设备对接需要先扫描智特终端显示屏上的二维码"
+        android:textColor="@color/cpb_red"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_connect"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_prompt"
+        android:layout_centerHorizontal="true"
+        app:layout_marginTopPercent="20%"
+        app:layout_widthPercent="65%"
+        android:background="@drawable/btn_simple_background"
+        android:text="连接"
+        android:textColor="@color/cpb_white"
+        android:textSize="16sp" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

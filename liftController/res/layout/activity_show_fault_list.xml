@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" xmlns:app1="http://schemas.android.com/apk/res-auto">
+    
+   <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+
+   <com.zhiitek.liftcontroller.views.CustomFormCellView 
+       android:id="@+id/task_title"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        app1:header_layout_weight="0"
+        app1:info_view_type="textview"
+        app1:info_layout_weight="1"
+        app1:info_text_size="18sp"
+        ></com.zhiitek.liftcontroller.views.CustomFormCellView>
+   
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+   
+   <com.zhiitek.liftcontroller.views.CustomFormCellView 
+       android:id="@+id/task_time"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        app1:info_view_type="textview"
+        app1:header_text="创建时间"
+        app1:info_text_size="16sp"
+        ></com.zhiitek.liftcontroller.views.CustomFormCellView>
+   
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+  
+   <com.zhiitek.liftcontroller.views.CustomFormCellView 
+       android:id="@+id/task_adress"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        app1:info_view_type="textview"
+        app1:header_text="地址"
+        ></com.zhiitek.liftcontroller.views.CustomFormCellView>
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+   
+   <com.zhiitek.liftcontroller.views.CustomFormCellView 
+       android:id="@+id/task_memo"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal"
+        app1:info_view_type="textview"
+        app1:header_text="备注"
+        ></com.zhiitek.liftcontroller.views.CustomFormCellView>
+
+   
+   <ListView
+        android:id="@+id/fault_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#00000000"
+        android:dividerHeight="5dp"
+        android:listSelector="#00000000"
+        android:layout_margin="10dp" />
+    
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+
+    <LinearLayout
+        android:id="@+id/ll_network"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="以太网"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/right" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_two"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <LinearLayout
+        android:id="@+id/ll_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="蓝牙"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+        
+        <com.zhiitek.liftcontroller.views.ToggleButton
+            android:id="@+id/tb_bluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <LinearLayout
+        android:id="@+id/ll_sound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="音量"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_two"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <LinearLayout
+        android:id="@+id/ll_log_manage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="日志管理"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/right" />
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/gray_two"/>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+    
+    <LinearLayout
+        android:id="@+id/ll_reboot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="重启设备"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_one" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

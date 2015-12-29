@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+
+    <com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_layout"
+        android:orientation="horizontal" >
+
+        <ListView
+            android:id="@+id/lv_menu"
+            android:layout_height="match_parent"
+            app:layout_widthPercent="18%"
+            android:divider="@color/dividing_line_color"
+            android:dividerHeight="1px"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" >
+        </ListView>
+
+        <com.zhiitek.liftcontroller.views.BlackBoxViewPager
+            android:id="@+id/id_vp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </com.zhiitek.liftcontroller.views.BlackBoxViewPager>
+    </com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

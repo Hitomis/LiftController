@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="100dp"
+    android:background="@drawable/item_listview_selector" >
+
+     <com.zhiitek.liftcontroller.views.CircleTextView
+	        android:id="@+id/faultnumberstv"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_margin="5dp"
+	        android:layout_alignParentRight="true"
+	        android:gravity="center"
+         />
+   
+    <RelativeLayout
+	    android:id="@+id/rl_right" 
+	    android:layout_height="40dp"
+	    android:layout_width="40dp"
+	    android:padding="3dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerInParent="true"
+	    >
+	    <ImageView 
+	        android:id="@+id/img_go_details"
+	        android:layout_height="25dp"
+	        android:layout_width="25dp"
+	        android:layout_centerInParent="true"
+	        android:src="@drawable/right"/>
+
+	    <CheckBox
+	        android:id="@+id/chk_is_resolve"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:visibility="invisible" />
+
+	</RelativeLayout>
+   
+    <LinearLayout
+        android:id="@+id/taskname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/faultnumberstv"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <!--  <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="任务:"
+            android:textSize="18sp" />-->
+
+        <TextView
+            android:id="@+id/tasknametv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="@color/text_major_color"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/tasktime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskname"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tasktimeprompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="创建时间"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tasktimetv"
+            android:layout_toRightOf="@id/tasktimeprompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+        
+        
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/taskaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/rl_right"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tasktime"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/taskaddressprompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="地址"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/taskaddresstv"
+            android:layout_toRightOf="@id/taskaddressprompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+        
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/taskmemo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskaddress"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/text_color"
+            android:text="备注"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/taskmemotv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_margin="5dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

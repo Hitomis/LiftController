@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+
+    <LinearLayout
+        android:id="@+id/linlay_conents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/linlay_notice_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/module_backgroud_color"
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="通告类型"
+                android:textColor="@color/text_title_color"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.5" >
+
+                <com.zhiitek.liftcontroller.views.SpinnerEditText
+                    android:id="@+id/set_notice_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/drop"
+                    android:background="@drawable/edittext_notice_backgound"
+                    android:layout_marginLeft="20dp"
+                    android:focusable="false"
+                    android:ellipsize="end"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/module_backgroud_color"
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="发送目标"
+                android:textColor="@color/text_title_color"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.5" >
+
+                <TextView
+                    android:id="@+id/tv_send_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="请选择"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/module_backgroud_color"
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="发布时间"
+                android:textColor="@color/text_title_color"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.5" >
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="请选择"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/module_backgroud_color"
+            android:gravity="center_vertical"
+            android:minHeight="45dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="截止时间"
+                android:textColor="@color/text_title_color"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.5" >
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="请选择"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/linlay_conents"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="8dp"
+        app:layout_heightPercent="30%"
+        android:background="@drawable/edittext_notice_backgound"
+        android:gravity="top"
+        android:hint="您要发布的通告..."
+        android:inputType="textMultiLine"
+        android:lines="9"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_sned"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_content"
+        android:layout_centerHorizontal="true"
+        app:layout_marginTopPercent="20%"
+        app:layout_widthPercent="65%"
+        android:background="@drawable/btn_simple_background"
+        android:text="发布"
+        android:textColor="@color/cpb_white"
+        android:textSize="16sp" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

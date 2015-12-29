@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+   <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+    
+   <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+   <com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="3"
+       android:orientation="vertical">
+       <TextView 
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:text="登陆服务器地址"
+           android:textSize="18sp"/>
+       <com.zhiitek.liftcontroller.views.SpinnerEditText 
+           android:id="@+id/login_url_edit"
+           android:layout_width="300dp"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_margin="10dp"
+           android:hint="请输入服务器网址"
+           android:ellipsize="end"
+           android:singleLine="true"
+           android:text="www.zhiitek.com:8081"
+           android:drawableRight="@drawable/drop"
+           android:textSize="18sp"/>
+       <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+       
+       <Button 
+           android:id="@+id/save_url"
+           app:layout_widthPercent="65%"
+        	app:layout_heightPercent="12%"
+            android:layout_gravity="center_horizontal"
+            app:layout_marginPercent="5%"
+            android:background="@drawable/btn_blue_background"
+            android:onClick="saveUrl"
+            android:textColor="@color/cpb_white"
+            android:textSize="18sp"
+            android:text="保存地址"/>
+       <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+   </com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>
+    
+    
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

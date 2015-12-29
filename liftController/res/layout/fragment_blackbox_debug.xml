@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/btn_blackbox_debug"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="2%"
+        app:layout_widthPercent="65%"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/btn_simple_background"
+        android:text="开始调试"
+        android:textColor="@color/cpb_white"
+        android:textSize="16sp" />
+    
+    <GridView 
+        android:id="@+id/gv_blackbox_debug_print"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@null"
+        android:layout_marginTop="8dp"
+        android:horizontalSpacing="1dp"  
+    	android:verticalSpacing="1dp"
+        android:numColumns="4">
+        
+    </GridView>
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

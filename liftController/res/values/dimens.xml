@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="cpb_stroke_width">4dp</dimen>
+    
+    <!-- WheelPicker通用尺寸-->
+    <!--General sizes-->
+    <dimen name="WheelItemSpace">8dp</dimen>
+    <dimen name="WheelPadding1x">8dp</dimen>
+    <dimen name="WheelPadding2x">16dp</dimen>
+    <dimen name="WheelTextSize">24sp</dimen>
+
+    <dimen name="WheelLabelTextSize">12sp</dimen>
+</resources>

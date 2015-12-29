@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/btn_choose_task"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/btn_blue_background"
+        android:enabled="false"
+        android:text="选择告警任务"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_resolve_task"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/btn_blue_background"
+        android:enabled="false"
+        android:text="解决告警任务"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp" />
+
+    <com.zhiitek.liftcontroller.views.RefreshableView
+        android:id="@+id/refreshable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/btn_resolve_task" >
+
+        <ListView
+            android:id="@+id/lv_my_task"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/dividing_listview_color"
+            android:dividerHeight="1dp"
+            android:scrollbars="none" >
+        </ListView>
+    </com.zhiitek.liftcontroller.views.RefreshableView>
+
+    <ImageView
+        android:id="@+id/iv_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:src="@drawable/icon_no_data" />
+
+</RelativeLayout>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+    
+    <LinearLayout 
+        android:id="@+id/lift_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
+        <!--  <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="电梯编号:"
+            android:layout_margin="10dp"/>-->
+        <TextView 
+            android:id="@+id/tv_lift_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_major_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="8dp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/dividing1"
+        android:layout_below="@id/lift_name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+    <LinearLayout 
+        android:id="@+id/lift_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividing1"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="16sp"
+            android:text="电梯编号"
+            android:textColor="@color/text_color"
+            android:layout_marginLeft="8dp"/>
+        <TextView 
+            android:id="@+id/tv_lift_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:textSize="17sp"
+            android:layout_marginRight="10dp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/dividing2"
+        android:layout_below="@id/lift_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+    <LinearLayout 
+        android:id="@+id/insp_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividing2"
+        android:gravity="center_vertical"
+        android:background="@color/module_backgroud_color"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
+        <TextView 
+            android:id="@+id/tv_insp_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="16sp"
+            android:textColor="@color/text_color"
+            android:text="报告编号"
+            android:layout_marginLeft="8dp"/>
+
+        <EditText 
+            android:id="@+id/et_insp_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@null"
+            android:inputType="number"
+            android:singleLine="true"
+            android:textSize="17sp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/dividing3"
+        android:layout_below="@id/insp_number_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+    <LinearLayout 
+        android:id="@+id/insp_conclution_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_below="@id/dividing3"
+        android:background="@color/module_backgroud_color"
+        android:minHeight="45dp"
+        android:orientation="horizontal">
+
+        <TextView 
+            android:id="@+id/tv_insp_conclution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="16sp"
+            android:text="检验结论"
+            android:textColor="@color/text_color"
+            android:layout_marginLeft="8dp"/>
+        
+        <com.zhiitek.liftcontroller.views.SpinnerEditText 
+           android:id="@+id/et_insp_conclution"
+           android:layout_width="0dp"
+           android:layout_height="40dp"
+           android:layout_weight="7"
+           android:layout_marginRight="10dp"
+           android:singleLine="true"
+           android:enabled="false"
+           android:ellipsize="end"
+           android:drawableRight="@drawable/drop"
+           android:gravity="center"
+           android:textSize="17sp"/>
+    </LinearLayout>
+    <View
+        android:id="@+id/dividing4"
+        android:layout_below="@id/insp_conclution_layout"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
+    <Button 
+        android:id="@+id/btn_sumbit_insp_conclution"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:layout_marginPercent="5%"
+        app:layout_widthPercent="65%"
+        app:layout_heightPercent="10%"
+        android:onClick="submitInspInfo"
+        android:textColor="@color/cpb_white"
+        android:background="@drawable/btn_blue_background"
+        android:textSize="18sp"
+        android:text="提交结论" />
+    
+    
+	<EditText 
+        android:id="@+id/et_insp_remark"
+        android:layout_below="@id/insp_conclution_layout"
+        android:layout_above="@id/btn_sumbit_insp_conclution"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:lines="5"
+        android:textSize="18sp"
+        android:hint="请输入问题描述"
+        android:gravity="top"
+        android:visibility="invisible"
+        />    
+    
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

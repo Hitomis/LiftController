@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+    
+    <com.zhiitek.liftcontroller.views.ViewPagerIndicator
+        android:id="@+id/id_indicator"
+        android:layout_width="match_parent"
+        app:layout_heightPercent="7.5%"
+        android:layout_alignParentBottom="true"
+        android:background="@color/module_bottom_color"
+        android:orientation="horizontal"
+        app:item_count="2" >
+    </com.zhiitek.liftcontroller.views.ViewPagerIndicator>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/id_vp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/id_indicator"
+        android:layout_below="@id/title_layout" >
+    </android.support.v4.view.ViewPager>
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

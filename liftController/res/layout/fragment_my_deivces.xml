@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <RelativeLayout
+            android:id="@+id/relay_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_search_backgound"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/search"
+                android:gravity="center_vertical"
+                android:text=" 搜索"
+                android:textColor="@color/text_title_color"
+                android:textSize="14sp" />
+    </RelativeLayout>
+    
+    <View
+        android:id="@+id/diving_line"
+        android:layout_below="@id/relay_search"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/dividing_deep_line_color" />
+
+    <LinearLayout
+        android:id="@+id/linlay_notice_manager"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        app:layout_heightPercent="7.5%"
+        android:background="@color/module_bottom_color"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/tv_notice_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_announcements"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:text="通告管理"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <com.zhiitek.liftcontroller.views.RefreshableView
+        android:id="@+id/rv_devices"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linlay_notice_manager"
+        android:layout_below="@id/diving_line"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/lv_devices_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/relay_search"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:divider="@color/dividing_listview_color"
+            android:dividerHeight="1dp"
+            android:scrollbars="none" >
+        </ListView>
+    </com.zhiitek.liftcontroller.views.RefreshableView>
+
+    <ImageView
+        android:id="@+id/iv_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/icon_no_data"
+        android:visibility="gone" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

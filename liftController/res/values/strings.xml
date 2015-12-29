@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">智特卫士</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="alarm_manage">告警管理</string>
+
+    <string name="choose_insp_result_title">请选择检验结果：</string>
+
+    <!-- url -->
+    <string name="login">http://136.158.27.254:8086/liftman/liftman/appAction!doNotNeedSession_downCorpLifts.action</string>
+
+    <!-- show String -->
+    <string name="authenticate_one_step">第一步:请连接可用网络刷新电梯任务列表</string>
+    <string name="authenticate_two_step">第二步:请扫描设备右下角二维码进行鉴权认证</string>
+    <!-- 默认智特android设备热点名称 -->
+    <string name="zhiitek_wifi_ssid">ZhiitekAP</string>
+
+    <string-array name="inspect_type">
+        <item>年检结论</item>
+        <item>监督检查结论</item>
+        <item>巡检结论</item>
+    </string-array>
+
+    <string-array name="user_type">
+        <item>管理员</item>
+        <item>特检</item>
+        <item>监督</item>
+        <item>维保</item>
+        <item>物业</item>
+    </string-array>
+
+    <string-array name="insp_conclution">
+        <item>现场检验合格</item>
+        <item>现场检验不合格</item>
+    </string-array>
+
+    <string-array name="reinsp_conclution">
+        <item>复检合格</item>
+        <item>复检不合格</item>
+    </string-array>
+
+    <string name="scan_tips">将二维码图片对准扫描框即可自动扫描</string>
+
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+    <string name="time_error">时间有问题</string>
+    <string name="pull_to_load_more">加载更多中...</string>
+
+</resources>

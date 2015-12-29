@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center" >
+
+    <LinearLayout
+        android:id="@+id/linlay_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/et_key_words"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:layout_weight="8"
+            android:background="@drawable/edittext_search_backgound"
+            android:drawableLeft="@drawable/search"
+            android:hint=" 搜索"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_search_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="取消"
+            android:textColor="@color/blue_one"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_search_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay_search" >
+    </ListView>
+
+</RelativeLayout>

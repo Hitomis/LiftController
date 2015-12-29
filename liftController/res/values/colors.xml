@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- circularProgressBtn -->
+    <color name="cpb_grey">#ffdedede</color>
+    <color name="cpb_blue">#ff0099cc</color>
+    <color name="cpb_blue_dark">#ff00719b</color>
+    <color name="cpb_red">#ffff4444</color>
+    <color name="cpb_red_dark">#ffcd3a3a</color>
+    <color name="cpb_green">#ff99cc00</color>
+    <color name="cpb_green_dark">#ff6d9b00</color>
+    <color name="cpb_white">@android:color/white</color>
+    
+    <!-- my Color -->
+    <color name="gray_one">#aaaaaa</color>
+    <color name="gray_two">#dfdfdf</color>
+    <color name="red_normal">#FF6666</color>
+    <color name="light_blue">#33b6ea</color>
+    <color name="bg_gray">#efeff4</color>
+    <color name="blue_one">#006f9c</color>
+    <color name="transparent">#cc000000</color>
+    <color name="text_title_color">#B2B2B2</color>
+    <color name="text_color">#666</color>
+    <color name="text_selected_color">#6699CC</color>
+    <color name="text_major_color">#3C4144</color>
+    <color name="module_backgroud_color">#FFFFFF</color>
+    <color name="module_activity_color">#F0EFF4</color>
+    <color name="module_bottom_color">#2599FA</color>
+    <color name="dividing_line_color">#F0F0F0</color>
+    <color name="dividing_deep_line_color">#E5E5E5</color>
+    <color name="dividing_listview_color">#CCCCCC</color>
+    <color name="button_normal_color">#0099CC</color>
+    <color name="button_press_color">#0080D0</color>
+    <color name="item_selected_color">#ABCDEF</color>
+
+</resources>

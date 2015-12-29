@@ -1,0 +1,77 @@
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_page"
+    tools:context="com.zhiitek.liftcontroller.activity.MainActivity" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
+    <com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/et_name"
+            app:layout_widthPercent="80%"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="请输入用户名"
+            android:drawableRight="@drawable/login_name"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            app:layout_widthPercent="80%"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:hint="请输入密码"
+            android:drawableRight="@drawable/login_psw"
+            android:inputType="textPassword"
+            android:textSize="18sp" />
+        
+        <TextView 
+        android:id="@+id/tv_forget_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_marginTopPercent="6%"
+        app:layout_marginRightPercent="10%"
+        android:textSize="16sp"
+        android:layout_gravity="end"
+        android:textColor="@color/cpb_white"
+        android:text="忘记密码>>"/>
+
+        <com.zhiitek.liftcontroller.views.cpb.CircularProgressButton
+            android:id="@+id/cpb_login"
+            app:layout_widthPercent="65%"
+            app:layout_heightPercent="20%"
+            android:layout_gravity="center_horizontal"
+            app:layout_marginTopPercent="8%"
+            android:onClick="login"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            app:cpb_cornerRadius="6dp"
+            app:cpb_iconComplete="@drawable/ic_action_accept"
+            app:cpb_iconError="@drawable/ic_action_cancel"
+            app:cpb_textIdle="登陆" />
+    </com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>
+    
+    <ImageView
+        android:id="@+id/url_setting_img"
+        android:layout_gravity="end"
+        android:layout_margin="5dp"
+        android:layout_width="25dp"
+        android:visibility="invisible"
+        android:layout_height="25dp"
+        android:src="@drawable/url_setting_icon" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

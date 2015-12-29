@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_devicetest_backgound"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="显示屏"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:gravity="center" >
+
+        <com.zhiitek.liftcontroller.views.ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

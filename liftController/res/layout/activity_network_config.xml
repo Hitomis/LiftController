@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:focusable="true"  
+        android:focusableInTouchMode="true" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="使用以太网"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+        <com.zhiitek.liftcontroller.views.ToggleButton
+            android:id="@+id/tb_network_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+    </LinearLayout>
+    
+
+    <LinearLayout
+        android:id="@+id/ll_dhcp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="动态分配"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.12" />
+
+        <com.zhiitek.liftcontroller.views.ToggleButton
+            android:id="@+id/tb_dhcp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            />
+    </LinearLayout>
+    
+
+    <LinearLayout 
+        android:id="@+id/ll_network_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="I  P  地  址"
+            android:textSize="16sp" />
+		
+        <EditText 
+            android:id="@+id/et_ip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp"/>
+    </LinearLayout>
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="子 网 掩 码"
+            android:textSize="16sp" />
+		
+        <EditText 
+            android:id="@+id/et_subnet_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="默 认 网 关"
+            android:textSize="16sp" />
+		
+        <EditText 
+            android:id="@+id/et_default_gateway"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_btn_selector"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="DNS服务器"
+            android:textSize="16sp" />
+		
+        <EditText 
+            android:id="@+id/et_dns_server"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:textSize="15sp"/>
+    </LinearLayout>
+    </LinearLayout>
+    
+    
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.12" />
+    
+    <Button
+        android:id="@+id/btn_save_network"
+        app:layout_widthPercent="80%"
+        app:layout_heightPercent="10%"
+        app:layout_marginPercent="5%"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:background="@drawable/btn_blue_background"
+        android:text="保存网络参数"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

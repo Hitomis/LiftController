@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:id="@+id/linlay_ethernet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="网口号"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:inputType="number"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linlay_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay_ethernet"
+        android:layout_marginTop="8dp"
+        android:background="@color/module_backgroud_color"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="定制号"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/dividing_line_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="口令号"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:inputType="number"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linlay_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/cpb_red"
+        android:text="与网口对接需要先输入网口号" />
+
+    <Button
+        android:id="@+id/btn_connect"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_prompt"
+        android:layout_centerHorizontal="true"
+        app:layout_marginTopPercent="20%"
+        app:layout_widthPercent="65%"
+        android:background="@drawable/btn_simple_background"
+        android:text="连接"
+        android:textColor="@color/cpb_white"
+        android:textSize="16sp" />
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_heightPercent="8%"
+        layout="@layout/layout_common_header" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <Button
+        android:id="@+id/btn_submit_config"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        app:layout_heightPercent="10%"
+        app:layout_marginPercent="5%"
+        app:layout_widthPercent="80%"
+        android:background="@drawable/btn_blue_background"
+        android:text="配置设备"
+        android:textColor="@color/cpb_white"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:id="@+id/sv_edit_config"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_submit_config"
+        android:layout_below="@id/title_layout" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/module_backgroud_color"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="设备软件版本"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_display_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="@color/dividing_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="电梯编号"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edit_lift_num"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:text="31104201062012050003"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/dividing_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="通信地址"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edit_lift_port"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:inputType="textUri"
+                    android:singleLine="true"
+                    android:text="com:///dev/ttyS3:115200"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/dividing_line_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="服务地址"
+                    android:textColor="@color/text_color"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7" >
+
+                    <EditText
+                        android:id="@+id/et_server_url"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4.5"
+                        android:background="@null"
+                        android:ellipsize="end"
+                        android:inputType="textUri"
+                        android:singleLine="true"
+                        android:text="www.zhiitek.com"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:background="@color/gray_one"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:textColor="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:text="：" />
+
+                    <EditText
+                        android:id="@+id/et_server_port"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.8"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:text="8081"
+                        android:gravity="right"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/dividing_line_color" />
+        </LinearLayout>
+    </ScrollView>
+
+</com.zhiitek.liftcontroller.views.percentlayout.PercentRelativeLayout>
