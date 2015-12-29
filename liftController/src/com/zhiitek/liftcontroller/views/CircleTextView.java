@@ -13,7 +13,7 @@ import com.zhiitek.liftcontroller.utils.DensityUtil;
 
 public class CircleTextView extends View {
 	
-	private final float displayRatio = 1.0f / 40.0f, textRatio = 40.0f / 60.0f;
+	private final float displayRatio = 1.0f / 40.0f, textRadio2x = 40.0f / 60.0f, textRadio3x = 30.0f / 60.0f;
 	
 	private Paint textPaint, backgroudPaint;
 
@@ -28,6 +28,14 @@ public class CircleTextView extends View {
 		int width = (int) textPaint.measureText(text) + getPaddingLeft() + getPaddingRight();
 		int height = (int) (Math.abs(textPaint.ascent() - textPaint.descent()) + getPaddingBottom() + getPaddingTop());
 		radiu = Math.max(Math.max(width, height), measureDiameter) / 2;
+		if (text.length() == 3) {
+			measureTextSize = (int) (textRadio3x * measureDiameter);
+			textPaint.setTextSize(measureTextSize);
+		} else {
+			measureTextSize = (int) (textRadio2x * measureDiameter);
+			textPaint.setTextSize(measureTextSize);
+		}
+		invalidate();
 	}
 
 	public CircleTextView(Context context) {
@@ -59,8 +67,6 @@ public class CircleTextView extends View {
 		float ratioh = screenHeight * displayRatio;
 		
 		measureDiameter = (int) Math.max(ratiow, ratioh);
-		measureTextSize = (int) (textRatio * measureDiameter);
-		textPaint.setTextSize(measureTextSize);
 	}
 	
 	@Override
