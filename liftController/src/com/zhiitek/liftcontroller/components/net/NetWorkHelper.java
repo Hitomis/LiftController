@@ -103,6 +103,13 @@ public class NetWorkHelper {
 		doExec(request);
 	}
 
+	/**
+	 * 用于解决context被替换导致show dialog 异常的问题
+	 * @param context
+	 * @param url
+	 * @param jsonParamters
+	 * @param callback
+	 */
 	public void execHttpNet(Context context, String url, JSONObject jsonParamters, NetCallback callback) {
 		ZTRequest request = getDefaultBuilderWithPrompt(context, url)
 				.setParamters(jsonParamters)
