@@ -137,7 +137,7 @@ public class NetWorkHelper {
 	 * 故本方法是将数据封装在待响应JSONObject中的data里面
 	 * @param key 
 	 * @param value
-	 * @param jsonParam 调用{@link TaskTcpSocketCmdListen#initResponseJsonObject(int)}之后获取的JSONObject
+	 * @param jsonParams 调用{@link NetWorkHelper#initJsonParameters(int)}之后获取的JSONObject
 	 * @throws JSONException
 	 */
 	public void setDataInResponseJson(String key, Object value, JSONObject jsonParams) throws JSONException {
