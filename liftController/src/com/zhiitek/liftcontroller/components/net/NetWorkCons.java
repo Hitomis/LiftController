@@ -194,7 +194,7 @@ public class NetWorkCons {
 	/** 自定义的Host类型 */
 	private static final int HOST_ENVIRTYPE_MINE = 3;
 	/** 当前的Host类型 */
-	private static final int HOST_ENVIRTYPE_CURRENT = HOST_ENVIRTYPE_MINE;
+	private static final int HOST_ENVIRTYPE_CURRENT = HOST_ENVIRTYPE_TEST;
 	/** URL前缀 */
 	private static final String URL_PREFIX = "http://";
 	/** Action前缀 */
