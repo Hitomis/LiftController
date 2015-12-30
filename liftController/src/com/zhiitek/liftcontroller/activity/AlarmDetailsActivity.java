@@ -78,5 +78,6 @@ public class AlarmDetailsActivity extends BaseActivity{
 					3);
 			imageHelper.displayImage(uri, ivShowPhoto);
 		}
+		System.out.print(11);
 	}
 }
