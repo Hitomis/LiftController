@@ -189,7 +189,12 @@ public class ConnectLiftFragment extends BaseFragment {
 			isNeedToPromptTimeOut = false;
 		}
 	}
-	
+
+	/**
+	 * 保存到SharedPreference
+	 * @param key
+	 * @param value
+	 */
 	private void saveValue2SharedPreference(String key, String value) {
 		Editor editor = sharedPreferences.edit();
 		editor.putString(key, value);
