@@ -23,6 +23,7 @@ import com.zhiitek.liftcontroller.model.TaskInfo;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.views.SpinnerEditText;
 import com.zhiitek.liftcontroller.views.SpinnerEditText.PopupItemClickListenner;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 /**
  * 解决检验任务
@@ -59,6 +60,7 @@ public class ResolveInspTaskActivity extends BaseActivity{
 
 	@Override
 	protected void dealProcessLogic() {
+		SwipeFinishLayout.attachToActivity(this);
 		inspTaskInfo = (TaskInfo) getIntent().getSerializableExtra("taskInfo");
 		String title;
 		if(inspTaskInfo.getTaskType().equals(TaskInfo.BAK_INSPECT_TASK_TYPE)) {

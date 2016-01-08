@@ -21,6 +21,7 @@ import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.model.FaultInfo;
 import com.zhiitek.liftcontroller.model.TaskInfo;
 import com.zhiitek.liftcontroller.views.CustomFormCellView;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 public class ShowFaultListActivity extends BaseActivity{
 
@@ -92,6 +93,7 @@ public class ShowFaultListActivity extends BaseActivity{
 
 	@Override
 	protected void dealProcessLogic() {
+		SwipeFinishLayout.attachToActivity(this);
 		if (mFaultInfos != null) {
 			mFaultAdapter = new BaseAdapterHelper<FaultInfo>(this, mFaultInfos, R.layout.item_show_fault_list) {
 				@Override

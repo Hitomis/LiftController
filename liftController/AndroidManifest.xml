@@ -73,10 +73,12 @@
         </activity>
         <activity
             android:name=".activity.ShowFaultListActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ResolveInspTaskActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
