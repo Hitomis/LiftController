@@ -28,6 +28,7 @@ import com.zhiitek.liftcontroller.utils.DialogUtil;
 import com.zhiitek.liftcontroller.views.CustomEditDialog;
 import com.zhiitek.liftcontroller.views.CustomEditDialog.Builder.OnClick;
 import com.zhiitek.liftcontroller.views.CustomProgressDialog;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 
 public class ConfigLiftActivity extends BaseActivity implements OnTouchListener{
@@ -87,6 +88,7 @@ public class ConfigLiftActivity extends BaseActivity implements OnTouchListener{
 	@Override
 	protected void dealProcessLogic() {
 		setTitleBar("设备配置", null);
+		SwipeFinishLayout.attachToActivity(this);
 		conn = new SocketConnection(this.getApplicationContext());
 		queryConfig();
 	}

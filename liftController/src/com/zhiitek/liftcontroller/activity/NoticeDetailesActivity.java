@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.model.NoticeInfo;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 /**
  * 
@@ -52,6 +53,8 @@ public class NoticeDetailesActivity extends BaseActivity {
 	@Override
 	protected void dealProcessLogic() {
 		setTitleBar("通告详情", null);
+
+		SwipeFinishLayout.attachToActivity(this);
 		
 		//接受列表页面传递过来的通告对象数据
 		NoticeInfo noticeInfo = (NoticeInfo) getIntent().getSerializableExtra(NoticeMainActivity.INTENT_EXTRA_NOTICEINFO);

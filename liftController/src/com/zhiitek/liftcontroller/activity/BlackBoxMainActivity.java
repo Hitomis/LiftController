@@ -15,6 +15,7 @@ import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.fragment.BlackBoxDevicesDockingFragment;
 import com.zhiitek.liftcontroller.fragment.BlackBoxEthernetPortFragment;
 import com.zhiitek.liftcontroller.utils.AppUtil;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 import com.zhiitek.liftcontroller.views.ViewPagerIndicator;
 import com.zhiitek.liftcontroller.views.ViewPagerIndicator.PageChangeListener;
 
@@ -56,6 +57,7 @@ public class BlackBoxMainActivity extends BaseActivity implements
 
 	@Override
 	protected void dealProcessLogic() {
+		SwipeFinishLayout.attachToActivity(this);
 		initDatas();
 		// 设置Tab上的标题
 		viewPagerIndicator.setTabItemTitles(createTabItemTitles());

@@ -48,7 +48,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
@@ -72,10 +72,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.NotificationDetailsActivity"
-            android:configChanges="keyboardHidden|orientation|locale|navigation"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name=".activity.ShowFaultListActivity"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
@@ -85,10 +81,12 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.AlarmDetailsActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ModifyPasswordActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -101,10 +99,12 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.ConfigLiftActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.LiftSettingActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -113,6 +113,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.LogManageActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity
@@ -131,26 +132,32 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.DeviceTestActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.BlackBoxMainActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.BlackBoxOperatingActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.NoticeMainActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.NoticeAddActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.NoticeDetailesActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".activity.NoticeLocalActivity"
+            android:theme="@style/SwipeFinishActivityTheme"
             android:screenOrientation="portrait"></activity>
 
         <service
@@ -160,14 +167,6 @@
             android:name=".service.ControllerService"
             android:enabled="true"
             android:label="ControllerService"></service>
-
-        <receiver android:name="com.zhiitek.androidpn.receiver.BootStartedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </receiver>
 
         <!-- #######################################################  JPush  ###################################################################### -->
         <!-- option since 2.0.5 可配置PushService，DaemonService,PushReceiver,AlarmReceiver的android:process参数 将JPush相关组件设置为一个独立进程 -->

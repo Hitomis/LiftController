@@ -17,6 +17,7 @@ import com.zhiitek.liftcontroller.components.SocketConnection;
 import com.zhiitek.liftcontroller.components.SocketConnection.SocketDataCallback;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.views.CustomProgressDialog;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 public class LogManageActivity extends BaseActivity implements OnClickListener{
 	
@@ -55,6 +56,7 @@ public class LogManageActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void dealProcessLogic() {
 		setTitleBar("日志管理", null);
+		SwipeFinishLayout.attachToActivity(this);
 		conn = new SocketConnection(this.getApplicationContext());
 		conn.setFileDirectory(FILE_DIR);
 	}

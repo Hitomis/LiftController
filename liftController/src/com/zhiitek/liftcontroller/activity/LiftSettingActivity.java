@@ -26,6 +26,7 @@ import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.utils.DensityUtil;
 import com.zhiitek.liftcontroller.utils.DialogUtil;
 import com.zhiitek.liftcontroller.views.CustomProgressDialog;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 import com.zhiitek.liftcontroller.views.ToggleButton;
 import com.zhiitek.liftcontroller.views.ToggleButton.OnToggleChanged;
 import com.zhiitek.liftcontroller.views.VoiceSeekBar;
@@ -105,6 +106,7 @@ public class LiftSettingActivity extends BaseActivity implements OnClickListener
 	@Override
 	protected void dealProcessLogic() {
 		setTitleBar("设备设置", null);
+		SwipeFinishLayout.attachToActivity(this);
 		conn = new SocketConnection(this.getApplicationContext());
 		queryConfig();
 	}

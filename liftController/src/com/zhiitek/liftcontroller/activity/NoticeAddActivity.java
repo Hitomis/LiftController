@@ -27,6 +27,7 @@ import com.zhiitek.liftcontroller.utils.AppUtil;
 import com.zhiitek.liftcontroller.utils.DensityUtil;
 import com.zhiitek.liftcontroller.views.SpinnerEditText;
 import com.zhiitek.liftcontroller.views.SpinnerEditText.PopupItemClickListenner;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 import com.zhiitek.liftcontroller.views.wheelpicker.view.SimpleWheelChangeListener;
 import com.zhiitek.liftcontroller.views.wheelpicker.view.WheelPicker;
 import com.zhiitek.liftcontroller.views.wheelpicker.widget.WheelLocalPicker;
@@ -129,7 +130,9 @@ public class NoticeAddActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void dealProcessLogic() {
 		setTitleBar("通告发布", null);
-		
+
+		SwipeFinishLayout.attachToActivity(this);
+
 		initNoticeTypeCheck();
 		
 		displayNoticeType();

@@ -15,6 +15,7 @@ import com.zhiitek.liftcontroller.components.net.NetWorkHelper;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.utils.LiftActivityManager;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 public class ModifyPasswordActivity extends BaseActivity{
 	
@@ -37,6 +38,7 @@ public class ModifyPasswordActivity extends BaseActivity{
 
 	@Override
 	protected void findViewById() {
+		SwipeFinishLayout.attachToActivity(this);
 		etOldPsw = (EditText)findViewById(R.id.et_old_psw);
 		etNewPsw1 = (EditText)findViewById(R.id.et_new_psw);
 		etNewPsw2 = (EditText)findViewById(R.id.et_confirm_new_psw);

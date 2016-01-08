@@ -10,6 +10,7 @@ import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.adapter.BaseAdapterHelper;
 import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.model.LocalInfo;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class NoticeLocalActivity extends BaseActivity implements AdapterView.OnI
 
     @Override
     protected void dealProcessLogic() {
+        SwipeFinishLayout.attachToActivity(this);
         localInfoList = (List<LocalInfo>) getIntent().getSerializableExtra(NoticeMainActivity.INTENT_EXTRA_LOCALINFO_LIFT);
         if (localInfoList == null || localInfoList.isEmpty()) return;
         String title = null;

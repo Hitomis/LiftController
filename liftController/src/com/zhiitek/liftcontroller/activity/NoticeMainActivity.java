@@ -26,6 +26,7 @@ import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.views.RefreshableView;
 import com.zhiitek.liftcontroller.views.RefreshableView.PullToLoadListener;
 import com.zhiitek.liftcontroller.views.RefreshableView.PullToRefreshListener;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 /**
  * 
@@ -98,7 +99,7 @@ public class NoticeMainActivity extends BaseActivity {
 	
 	@Override
 	protected void dealProcessLogic() {
-		
+		SwipeFinishLayout.attachToActivity(this);
 		setTitleBar("通告管理", new OnClickListener() {
 			
 			@Override

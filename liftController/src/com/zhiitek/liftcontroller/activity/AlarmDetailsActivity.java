@@ -9,6 +9,7 @@ import com.zhiitek.liftcontroller.components.ImageHelper;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.utils.AppUtil;
+import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,7 @@ public class AlarmDetailsActivity extends BaseActivity{
 
 	@Override
 	protected void dealProcessLogic() {
+		SwipeFinishLayout.attachToActivity(this);
 		imageHelper = ImageHelper.getInstance();
 		imageHelper.init(this);
 		AlarmInfo alarmInfo = (AlarmInfo) getIntent().getSerializableExtra("alarmInfo");
