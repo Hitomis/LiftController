@@ -33,16 +33,21 @@ public class SwipeFinishLayout extends FrameLayout {
 
     private Activity activity;
 
-    private View contentView;
-
     private ViewDragHelper vDragHelper;
 
+    /** DecorView中的子容器 */
+    private View contentView;
+
+    /** 当前移动距离占屏幕宽度的百分比 */
     private float scrollPercent;
 
+    /** 当前移动的Activity左边界离屏幕左边界的距离 */
     private int contentLeft;
 
+    /** 影子图片 */
     private Drawable shadowLeft;
 
+    /** 阴影片区的不透明度 */
     private float scrimOpacity;
 
     private Rect tmpRect = new Rect();
@@ -144,9 +149,7 @@ public class SwipeFinishLayout extends FrameLayout {
         act.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         act.getWindow().getDecorView().setBackgroundDrawable(null);
 
-        TypedArray typedArray = act.getTheme().obtainStyledAttributes(new int[]{
-                android.R.attr.windowBackground
-        });
+        TypedArray typedArray = act.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
         int background = typedArray.getResourceId(0, 0);
         typedArray.recycle();
 
@@ -181,16 +184,28 @@ public class SwipeFinishLayout extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(View view, int i) {
+            //是否触摸的左边边界
             boolean isEdgeTouched = vDragHelper.isEdgeTouched(ViewDragHelper.EDGE_LEFT);
-            boolean directionCheck = !vDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
-            return isEdgeTouched & directionCheck;
+            //方向是否为横向
+            boolean isHorDirec = !vDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
+            return isEdgeTouched & isHorDirec;
         }
 
+        /**
+         * 返回非零表示可以水平移动，反之不可水平移动
+         * @param child
+         * @return
+         */
         @Override
         public int getViewHorizontalDragRange(View child) {
             return ViewDragHelper.EDGE_LEFT;
         }
 
+        /**
+         * 返回非零表示可以竖直移动, 反之不可竖直移动
+         * @param child
+         * @return
+         */
         @Override
         public int getViewVerticalDragRange(View child) {
             return 0;
@@ -213,7 +228,7 @@ public class SwipeFinishLayout extends FrameLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             int childWidth = releasedChild.getWidth();
-            int left = xvel > 0 || xvel == 0 && scrollPercent > mScrollThreshold
+            int left = xvel > 0 || (xvel == 0 && scrollPercent > mScrollThreshold)
                     ? childWidth + shadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE : 0;
             vDragHelper.settleCapturedViewAt(left, 0);
             invalidate();
