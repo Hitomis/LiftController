@@ -23,37 +23,32 @@ public class SwipeFinishLayout extends FrameLayout {
 
     private static final int MIN_FLING_VELOCITY = 400;
 
-    private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
-
     private static final int FULL_ALPHA = 255;
-
-    private static final float DEFAULT_SCROLL_THRESHOLD = .3f;
 
     private static final int OVERSCROLL_DISTANCE = 10;
 
-    private float mScrollThreshold = DEFAULT_SCROLL_THRESHOLD;
+    private float mScrollThreshold = .3f;
+
+    private int scrimColor = 0x99000000;
 
     private Activity activity;
 
-    private boolean enable = true;
-
-    private View contentView;
-
     private ViewDragHelper vDragHelper;
 
+    /** DecorView中的子容器 */
+    private View contentView;
+
+    /** 当前移动距离占屏幕宽度的百分比 */
     private float scrollPercent;
 
+    /** 当前移动的Activity左边界离屏幕左边界的距离 */
     private int contentLeft;
 
-    private int contentTop;
-
+    /** 影子图片 */
     private Drawable shadowLeft;
 
+    /** 阴影片区的不透明度 */
     private float scrimOpacity;
-
-    private int scrimColor = DEFAULT_SCRIM_COLOR;
-
-    private boolean inLayout;
 
     private Rect tmpRect = new Rect();
 
@@ -86,7 +81,6 @@ public class SwipeFinishLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!enable) return false;
         try {
             return vDragHelper.shouldInterceptTouchEvent(ev);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -96,26 +90,16 @@ public class SwipeFinishLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (!enable) return false;
         vDragHelper.processTouchEvent(event);
         return true;
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        inLayout = true;
         if (contentView != null) {
-            contentView.layout(contentLeft, contentTop,
+            contentView.layout(contentLeft, 0,
                     contentLeft + contentView.getMeasuredWidth(),
-                    contentTop + contentView.getMeasuredHeight());
-        }
-        inLayout = false;
-    }
-
-    @Override
-    public void requestLayout() {
-        if (!inLayout) {
-            super.requestLayout();
+                    contentView.getMeasuredHeight());
         }
     }
 
@@ -132,6 +116,7 @@ public class SwipeFinishLayout extends FrameLayout {
 
     /**
      * 绘制Activity左侧的阴影片区
+     *
      * @param canvas
      * @param child
      */
@@ -146,6 +131,7 @@ public class SwipeFinishLayout extends FrameLayout {
 
     /**
      * 绘制紧挨Activity左侧的影子
+     *
      * @param canvas
      * @param child
      */
@@ -163,9 +149,7 @@ public class SwipeFinishLayout extends FrameLayout {
         act.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         act.getWindow().getDecorView().setBackgroundDrawable(null);
 
-        TypedArray typedArray = act.getTheme().obtainStyledAttributes(new int[]{
-                android.R.attr.windowBackground
-        });
+        TypedArray typedArray = act.getTheme().obtainStyledAttributes(new int[]{android.R.attr.windowBackground});
         int background = typedArray.getResourceId(0, 0);
         typedArray.recycle();
 
@@ -198,25 +182,30 @@ public class SwipeFinishLayout extends FrameLayout {
 
     private class ViewDragCallback extends ViewDragHelper.Callback {
 
-        private boolean isScrollOverValid;
-
         @Override
         public boolean tryCaptureView(View view, int i) {
+            //是否触摸的左边边界
             boolean isEdgeTouched = vDragHelper.isEdgeTouched(ViewDragHelper.EDGE_LEFT);
-            if (isEdgeTouched) {
-                isScrollOverValid = true;
-            }
-
-            boolean directionCheck = !vDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
-
-            return isEdgeTouched & directionCheck;
+            //方向是否为横向
+            boolean isHorDirec = !vDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL, i);
+            return isEdgeTouched & isHorDirec;
         }
 
+        /**
+         * 返回非零表示可以水平移动，反之不可水平移动
+         * @param child
+         * @return
+         */
         @Override
         public int getViewHorizontalDragRange(View child) {
             return ViewDragHelper.EDGE_LEFT;
         }
 
+        /**
+         * 返回非零表示可以竖直移动, 反之不可竖直移动
+         * @param child
+         * @return
+         */
         @Override
         public int getViewVerticalDragRange(View child) {
             return 0;
@@ -228,11 +217,7 @@ public class SwipeFinishLayout extends FrameLayout {
             scrollPercent = Math.abs((float) left / (contentView.getWidth() + shadowLeft.getIntrinsicWidth()));
 
             contentLeft = left;
-            contentTop = top;
             invalidate();
-            if (scrollPercent < mScrollThreshold && !isScrollOverValid) {
-                isScrollOverValid = true;
-            }
 
             if (scrollPercent >= 1 && !activity.isFinishing()) {
                 activity.finish();
@@ -243,7 +228,7 @@ public class SwipeFinishLayout extends FrameLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             int childWidth = releasedChild.getWidth();
-            int left = xvel > 0 || xvel == 0 && scrollPercent > mScrollThreshold
+            int left = xvel > 0 || (xvel == 0 && scrollPercent > mScrollThreshold)
                     ? childWidth + shadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE : 0;
             vDragHelper.settleCapturedViewAt(left, 0);
             invalidate();
@@ -263,6 +248,7 @@ public class SwipeFinishLayout extends FrameLayout {
         public void onViewDragStateChanged(int state) {
             super.onViewDragStateChanged(state);
         }
+
     }
 
     /**
@@ -273,4 +259,5 @@ public class SwipeFinishLayout extends FrameLayout {
         SwipeFinishLayout mSwipeFinishLayout = new SwipeFinishLayout(activity);
         mSwipeFinishLayout.replaceDecorChild(activity);
     }
+
 }
