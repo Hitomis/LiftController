@@ -1,10 +1,5 @@
 package com.zhiitek.liftcontroller.utils;
 
-import java.util.List;
-
-import com.zhiitek.liftcontroller.R;
-import com.zhiitek.liftcontroller.views.CustomProgressDialog;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +9,11 @@ import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+
+import com.zhiitek.liftcontroller.R;
+import com.zhiitek.liftcontroller.views.CustomProgressDialog;
+
+import java.util.List;
 
 public class WifiUtil {
 	
@@ -94,7 +94,7 @@ public class WifiUtil {
 					connectWifiCallback.errorAuthenticating();
 				}
 			} else if (WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(intent.getAction())) {
-				if (isUserConnectWifi && !isSSIDAvailable(ssid)) {
+				if (isUserConnectWifi && !isSSIDAvailable(ssid) && !isSSIDAvailable(("\"" + ssid + "\""))) {
 					dismissDlg();
 					isUserConnectWifi = false;
 					connectWifiCallback.apNotAvailable();
