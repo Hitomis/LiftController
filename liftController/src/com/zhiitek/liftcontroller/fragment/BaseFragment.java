@@ -118,7 +118,7 @@ public abstract class BaseFragment extends Fragment{
 	/**
 	 * 硬件测试，socket通信返回错误码时，提示用户
 	 * @param text
-	 * @param errorcode
+	 * @param errorCode
 	 */
 	protected void promptBlackBoxSocketonFailure(String text, int errorCode) {
 		switch (errorCode) {
