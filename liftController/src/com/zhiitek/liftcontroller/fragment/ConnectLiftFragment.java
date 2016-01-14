@@ -33,6 +33,9 @@ import com.zhiitek.liftcontroller.utils.LiftActivityManager;
 import com.zhiitek.liftcontroller.utils.WifiUtil;
 import com.zhiitek.liftcontroller.utils.WifiUtil.ConnectWifiCallback;
 
+/**
+ * 设备维护界面
+ */
 public class ConnectLiftFragment extends BaseFragment {
 
 	private ImageView mScanningImg, mVerificationImg;
@@ -56,6 +59,9 @@ public class ConnectLiftFragment extends BaseFragment {
 	private boolean isNeedToPromptTimeOut = false;
 	/** 是否成功绑定上MonitorConnectTimeService */
 	private boolean hasAlreadyBindServiceSuccess = false;
+
+	/** 是否正在扫描二维码 */
+	public boolean isConnectDevicesWifi;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -177,6 +183,7 @@ public class ConnectLiftFragment extends BaseFragment {
 						ssid = result.substring(8, 40);
 						password = result.substring(41);
 						wifiUtil.connectWifiAp(ssid, password);
+						isConnectDevicesWifi = true;
 					} else {
 						showToast("请确认扫描的是AP二维码");
 					}

@@ -295,7 +295,14 @@ public class MainActivity extends BaseActivity {
 		if (!AppUtil.hasNetwork(this)) {
 			handler.sendEmptyMessageDelayed(0, 50);
 		} else {
-			new UpdateCountsTask(getApplicationContext()).updateCount();
+			if (mConfigureLiftFragment != null && mConfigureLiftFragment.isVisible()) { //当前加载显示的是设备维护Fragment
+				if (!mConfigureLiftFragment.isConnectDevicesWifi) { // 当前不是扫描二维码动作
+					new UpdateCountsTask(getApplicationContext()).updateCount();
+				}
+				mConfigureLiftFragment.isConnectDevicesWifi = false;
+			} else { // 第一次进入设备维护Fragment或者其余Fragment默认执行告警数量的更新Task
+				new UpdateCountsTask(getApplicationContext()).updateCount();
+			}
 		}
 	};
 	

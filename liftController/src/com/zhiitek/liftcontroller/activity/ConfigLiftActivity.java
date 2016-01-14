@@ -177,7 +177,7 @@ public class ConfigLiftActivity extends BaseActivity implements OnTouchListener{
 				conn.post(createSaveConfigJson(), new SocketDataCallback() {
 					@Override
 					public void onSuccess(String result) {
-						resolveSuccessResult(result);
+ 						resolveSuccessResult(result);
 						dialog.dismiss();
 					}
 					@Override
