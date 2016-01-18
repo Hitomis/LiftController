@@ -274,7 +274,7 @@ public class WaterStretchView extends View {
 		}
 		float topR = (float) (mMaxCircleRadius - 0.28 * percent * mMaxCircleRadius);
 		float bottomR = (mMinCircleRaidus - mMaxCircleRadius) * percent + mMaxCircleRadius;
-		float bottomCricleOffset = 5.f * percent * mMaxCircleRadius;
+		float bottomCricleOffset = 3.5f * percent * mMaxCircleRadius;
 		topCircle.setRadius(topR);
 		bottomCircle.setRadius(bottomR);
 		bottomCircle.setY(topCircle.getY() + bottomCricleOffset);
