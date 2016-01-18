@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <RelativeLayout
+            android:id="@+id/waterstretchlistview_footer_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+        <LinearLayout
+                android:id="@+id/progresslayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            <com.zhiitek.liftcontroller.views.SpinFadeLoaderView
+                    android:id="@+id/waterstretchlistview_footer_progressbar"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible"
+                android:indeterminate="false" />
+
+            <TextView
+                    android:id="@+id/txt_progresstext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/waterstretchlistview_footer_hint_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="查看更多"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EEEFF3"
+    android:gravity="center_horizontal|bottom"
+    android:orientation="horizontal" >
+
+    <com.zhiitek.liftcontroller.views.WaterStretchView
+        android:id="@+id/waterstreteclist_waterstretch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:max_circle_radius="15dp"
+        app:min_circle_radius="3dp"
+        app:waterstretch_fill_color="#9ba2ab"
+        app:waterstretch_stroke_color="#757575" />
+
+    <com.zhiitek.liftcontroller.views.SpinFadeLoaderView
+        android:id="@+id/waterstretchlist_loaderbar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/waterstretchlist_textveiw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/icon_ok"
+        android:drawablePadding="10dp"
+        android:text="刷新成功"
+        android:textColor="#afb0b1"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+</LinearLayout>

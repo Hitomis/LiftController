@@ -68,4 +68,12 @@
         <attr name="wheel_text_color" format="color" />
     </declare-styleable>
 
+    <!-- WaterStretchView 自定义属性 -->
+    <declare-styleable name="WaterStretchView">
+        <attr name="max_circle_radius" format="dimension"/>
+        <attr name="min_circle_radius" format="dimension"/>
+        <attr name="waterstretch_fill_color" format="color"/>
+        <attr name="waterstretch_stroke_color" format="color"/>
+    </declare-styleable>
+
 </resources>
