@@ -213,7 +213,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/et_content"
         android:layout_centerHorizontal="true"
-        app:layout_marginTopPercent="20%"
+        app:layout_marginTopPercent="15%"
         app:layout_widthPercent="65%"
         android:background="@drawable/btn_simple_background"
         android:text="发布"
