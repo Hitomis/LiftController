@@ -1,25 +1,7 @@
 package com.zhiitek.liftcontroller.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.zhiitek.liftcontroller.R;
-import com.zhiitek.liftcontroller.views.CustomPromptDialog;
-
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.ProgressDialog;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -30,6 +12,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.zhiitek.liftcontroller.R;
+import com.zhiitek.liftcontroller.views.CustomPromptDialog;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AppUtil {
 
@@ -58,7 +52,7 @@ public class AppUtil {
 	
 	/**
 	 * 获取服务器文件的名称
-	 * @param apkUrl
+	 * @param serverPath
 	 * @return
 	 */
 	public static String getServerFileName(String serverPath) {
@@ -74,21 +68,21 @@ public class AppUtil {
 	}
 
 	/**
-	 * 从服务器上下载最新的APK
+	 * 从服务器上下载文件
 	 * @param serverPath 服务器路径
 	 * @param savedPath  文件在SDcard上保存的路径
 	 * @param pd 进度条
 	 * @return 返回null代表下载失败
 	 */
 	public static File download(String serverPath, String savedPath,
-			ProgressDialog pd) {
+								ProgressDialog pd) {
 		try {
 			URL url = new URL(serverPath);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5000);
 			int code = conn.getResponseCode();
-			if(code == 200){//TODO:请求成功
+			if (code == 200) {//TODO:请求成功
 				pd.setMax(conn.getContentLength());
 				InputStream is = conn.getInputStream();
 				File file = new File(savedPath);
@@ -96,11 +90,49 @@ public class AppUtil {
 				byte[] buffer = new byte[1024];
 				int len = 0;
 				int total = 0;
-				while((len = is.read(buffer)) != -1){
+				while ((len = is.read(buffer)) != -1) {
 					fos.write(buffer, 0, len);
 					total += len;
 					pd.setProgress(total);
 					Thread.sleep(5);//TODO:为了下载的时可以显示出进度条跑动的效果暂时加上
+				}
+				fos.flush();
+				fos.close();
+				is.close();
+				return file;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+		/**
+         * 从服务器上下载文件
+         * @param serverPath 服务器路径
+         * @param savedPath  文件在SDcard上保存的路径
+         * @return 返回null代表下载失败
+         */
+	public static File download(String serverPath, String savedPath) {
+		try {
+			URL url = new URL(serverPath);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setConnectTimeout(5000);
+			int code = conn.getResponseCode();
+			if(code == 200){//TODO:请求成功
+				InputStream is = conn.getInputStream();
+				System.out.println("conn.serverPath = " + serverPath);
+				System.out.println("conn.is = " + is.available());
+				System.out.println("conn.getContentLength() = " + conn.getContentLength());
+				File file = new File(savedPath);
+				FileOutputStream fos = new FileOutputStream(file);
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while ((len = is.read(buffer)) != -1) {
+					fos.write(buffer, 0, len);
 				}
 				fos.flush();
 				fos.close();

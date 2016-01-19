@@ -33,7 +33,7 @@
             android:layout_marginRight="10dp"
             android:background="@color/dividing_deep_line_color" />
 
-    <com.zhiitek.liftcontroller.views.RefreshableView
+    <!--<com.zhiitek.liftcontroller.views.RefreshableView
         android:id="@+id/rv_alarms"
         android:layout_below="@id/diving_line"
         android:layout_width="match_parent"
@@ -50,7 +50,18 @@
             android:dividerHeight="1dp"
             android:scrollbars="none" >
         </ListView>
-    </com.zhiitek.liftcontroller.views.RefreshableView>
+    </com.zhiitek.liftcontroller.views.RefreshableView> -->
+
+    <com.zhiitek.liftcontroller.views.WaterStretchListView
+        android:id="@+id/wsl_alarms_data"
+        android:layout_below="@id/diving_line"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="@color/dividing_listview_color"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"/>
 
     <ImageView
         android:id="@+id/iv_prompt"

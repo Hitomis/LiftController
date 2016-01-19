@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="100dp"
+    android:padding="8dp"
     android:background="@drawable/item_listview_selector" >
 
      <com.zhiitek.liftcontroller.views.CircleTextView
@@ -61,7 +62,7 @@
             android:singleLine="true"
             android:textStyle="bold"
             android:textColor="@color/text_major_color"
-            android:textSize="18sp" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -79,7 +80,7 @@
             android:layout_margin="5dp"
             android:text="创建时间"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tasktimetv"
@@ -89,7 +90,7 @@
             android:layout_margin="5dp"
             android:singleLine="true"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
         
         
     </RelativeLayout>
@@ -110,7 +111,7 @@
             android:layout_margin="5dp"
             android:text="地址"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/taskaddresstv"
@@ -120,7 +121,7 @@
             android:layout_margin="5dp"
             android:singleLine="true"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
         
         
     </RelativeLayout>

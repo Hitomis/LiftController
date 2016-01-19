@@ -1,19 +1,11 @@
 package com.zhiitek.liftcontroller.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.zhiitek.liftcontroller.R;
@@ -23,10 +15,15 @@ import com.zhiitek.liftcontroller.components.net.NetWorkCons;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.model.NoticeInfo;
 import com.zhiitek.liftcontroller.utils.AppConstant;
-import com.zhiitek.liftcontroller.views.RefreshableView;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToLoadListener;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToRefreshListener;
 import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
+import com.zhiitek.liftcontroller.views.WaterStretchListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -37,11 +34,9 @@ import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
  * @author ZhaoFan
  *
  */
-public class NoticeMainActivity extends BaseActivity {
+public class NoticeMainActivity extends BaseActivity implements WaterStretchListView.WaterStretchListener {
 	
-	private RefreshableView refreshView;
-	
-	private ListView lvNotices;
+	private WaterStretchListView waterStretchListView;
 	
 	private List<NoticeInfo> noticeList = new ArrayList<NoticeInfo>();
 	
@@ -61,38 +56,20 @@ public class NoticeMainActivity extends BaseActivity {
 
 	@Override
 	protected void findViewById() {
-		refreshView = (RefreshableView) findViewById(R.id.rfv_notice);
-		refreshView.setFooterView();
-		lvNotices = (ListView) findViewById(R.id.lv_notice_data);
+		waterStretchListView = (WaterStretchListView) findViewById(R.id.wsl_notice_data);
+		waterStretchListView.setWaterStretchListViewListener(this);
+		waterStretchListView.setPushLoadEnable(false);
 	}
 
 	@Override
 	protected void setListener() {
-		lvNotices.setOnItemClickListener(new OnItemClickListener() {
+		waterStretchListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(NoticeMainActivity.this, NoticeDetailesActivity.class);
-				intent.putExtra(INTENT_EXTRA_NOTICEINFO, noticeList.get(position));
+				intent.putExtra(INTENT_EXTRA_NOTICEINFO, (NoticeInfo) waterStretchListView.getAdapter().getItem(position));
 				startActivity(intent);
-			}
-		});
-		
-		refreshView.setOnRefreshListener(new PullToRefreshListener() {
-
-			@Override
-			public void onRefresh() {
-				currentIndexPage = 0;//刷新数据时,更新第一页内容
-				getNoticeDataListWithoutPrompt();
-			}
-		}, NetWorkCons.CMD_HTTP_GET_NOTICE_LIST);
-		
-		refreshView.setOnLoadListener(new PullToLoadListener() {
-			
-			@Override
-			public void onLoad() {
-				currentIndexPage++;//每次加载更多,都刷新下一页内容
-				getNoticeDataListWithoutPrompt();
 			}
 		});
 	}
@@ -138,7 +115,19 @@ public class NoticeMainActivity extends BaseActivity {
 		}
 		return jsonParms;
 	}
-	
+
+	@Override
+	public void onRefresh() {
+		currentIndexPage = 0;//刷新数据时,更新第一页内容
+		getNoticeDataListWithoutPrompt();
+	}
+
+	@Override
+	public void onLoadMore() {
+		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		getNoticeDataListWithoutPrompt();
+	}
+
 	private class NetNoticeCallback implements NetCallback {
 
 		@Override
@@ -177,23 +166,23 @@ public class NoticeMainActivity extends BaseActivity {
 		totalNoticeCount = resultJson.getInt("total");//获取数据总条数	
 		if (currentIndexPage == 0) {
 			noticeList.addAll(0, parseNoticeData(resultJson));
-			refreshView.finishRefreshing();
+			waterStretchListView.stopRefresh(true);
 			noticeAdapterHelper.notifyDataSetChanged();
 		} else if (currentIndexPage == 1) {
 			noticeList.clear();
 			noticeList.addAll(parseNoticeData(resultJson));
-			refreshView.finishRefreshing();
-			lvNotices.setAdapter(noticeAdapterHelper);
+//			waterStretchListView.stopRefresh(true);
+			waterStretchListView.setAdapter(noticeAdapterHelper);
 		} else if (currentIndexPage > 1){//每次加载更多,直接添加数据
 			noticeList.addAll(parseNoticeData(resultJson));
-			refreshView.finishLoading();
+			waterStretchListView.stopLoadMore();
 			noticeAdapterHelper.notifyDataSetChanged();
 		}
 		showBlank(noticeList);
 		if (noticeAdapterHelper.getCount() >= totalNoticeCount) {//加载的数据比服务器总数据还多时,不再显示加载更多
-			refreshView.setFooterViewShow(false);
+			waterStretchListView.setPushLoadEnable(false);
 		} else {
-			refreshView.setFooterViewShow(true);
+			waterStretchListView.setPushLoadEnable(true);
 		}
 		
 	}

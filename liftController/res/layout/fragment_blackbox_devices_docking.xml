@@ -64,6 +64,7 @@
             android:id="@+id/blackbox_docking_set_serialport_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00000000"
             android:orientation="horizontal"
             app1:header_layout_weight="3"
             app1:header_text="设备未绑定"

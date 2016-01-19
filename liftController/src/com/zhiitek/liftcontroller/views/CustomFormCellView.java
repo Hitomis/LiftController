@@ -68,6 +68,21 @@ public class CustomFormCellView extends LinearLayout{
 	
 	private int infoViewType;
 
+	//xml中读取的头信息的相关参数
+	String headerText;
+	float headerMarginLeft;
+	float headerWeight;
+	int headerTextColor;
+	float headerTextSize;
+	//xml中读取的显示信息的相关参数
+	String infoText;
+	float infoMarginLeft;
+	float infoWeight;
+	int infoTextColor;
+	float infoTextSize;
+	Drawable infoBackground = null;
+
+
 	public CustomFormCellView(Context context) {
 		this(context, null);
 	}
@@ -84,18 +99,18 @@ public class CustomFormCellView extends LinearLayout{
 	
 	private void initView(Context context, AttributeSet attrs) {
 		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomFormCellView);
-		String headerText = a.getString(R.styleable.CustomFormCellView_header_text);
-		float headerMarginLeft = a.getDimension(R.styleable.CustomFormCellView_header_layout_marginLeft, 0);
-		float headerWeight = a.getFloat(R.styleable.CustomFormCellView_header_layout_weight, DEFAULT_HEADERVIEW_WEIGHT);
-		int headerTextColor = a.getInt(R.styleable.CustomFormCellView_header_text_color, R.color.text_color);
-		float headerTextSize = a.getDimension(R.styleable.CustomFormCellView_header_text_size, DensityUtil.sp2px(context, 16));
-		String infoText = a.getString(R.styleable.CustomFormCellView_info_text);
-		float infoMarginLeft = a.getDimension(R.styleable.CustomFormCellView_info_layout_marginLeft, 0);
-		float infoWeight = a.getFloat(R.styleable.CustomFormCellView_info_layout_weight, DEFAULT_INFOVIEW_WEIGHT);
-		int infoTextColor = a.getInt(R.styleable.CustomFormCellView_info_text_color, Color.BLACK);
-		float infoTextSize = a.getDimension(R.styleable.CustomFormCellView_info_text_size, DensityUtil.sp2px(context, 17));
+		headerText = a.getString(R.styleable.CustomFormCellView_header_text);
+		headerMarginLeft = a.getDimension(R.styleable.CustomFormCellView_header_layout_marginLeft, 0);
+		headerWeight = a.getFloat(R.styleable.CustomFormCellView_header_layout_weight, DEFAULT_HEADERVIEW_WEIGHT);
+		headerTextColor = a.getInt(R.styleable.CustomFormCellView_header_text_color, R.color.text_color);
+		headerTextSize = a.getDimension(R.styleable.CustomFormCellView_header_text_size, DensityUtil.sp2px(context, 16));
+		infoText = a.getString(R.styleable.CustomFormCellView_info_text);
+		infoMarginLeft = a.getDimension(R.styleable.CustomFormCellView_info_layout_marginLeft, 0);
+		infoWeight = a.getFloat(R.styleable.CustomFormCellView_info_layout_weight, DEFAULT_INFOVIEW_WEIGHT);
+		infoTextColor = a.getInt(R.styleable.CustomFormCellView_info_text_color, Color.BLACK);
+		infoTextSize = a.getDimension(R.styleable.CustomFormCellView_info_text_size, DensityUtil.sp2px(context, 17));
 		infoViewType = a.getInt(R.styleable.CustomFormCellView_info_view_type, TYPE_DEFAULT);
-		Drawable infoBackground = a.getDrawable(R.styleable.CustomFormCellView_info_background);
+		infoBackground = a.getDrawable(R.styleable.CustomFormCellView_info_background);
 		a.recycle();
 		
 		setOrientation(LinearLayout.HORIZONTAL);
@@ -104,24 +119,26 @@ public class CustomFormCellView extends LinearLayout{
 		int tp = getPaddingTop() == 0 ? DensityUtil.dip2Px(context, DEFAULT_PADDING) : getPaddingTop();
 		int bp = getPaddingBottom() == 0 ? DensityUtil.dip2Px(context, DEFAULT_PADDING) : getPaddingBottom();
 		setPadding(lp, tp, rp, bp);
-		
-		if (infoViewType == TYPE_TEXTVIEW) {
-			setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
-			setWrapTextViewAttributes(context, infoMarginLeft, infoWeight, infoText, infoTextColor, infoTextSize);
-		} else if (infoViewType == TYPE_EDITTEXT) {
-			setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
-			setEdittextAttributes(context, infoMarginLeft, infoWeight, infoText, infoTextColor, infoTextSize, infoBackground);
-		} else if (infoViewType == TYPE_TOGGLEBUTTON) {
-			setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
-			setToggleButtonAttributes(context, 0, 1.875f);
-		}
+
+		addViews();
 	}
-	
+
+	private void addViews() {
+		removeAllViews();
+		setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
+		if (infoViewType == TYPE_EDITTEXT) {
+			 setEdittextAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, DensityUtil.sp2px(context, 17), infoBackground);
+		 } else if (infoViewType == TYPE_TEXTVIEW) {
+			 setWrapTextViewAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, DensityUtil.sp2px(context, 17));
+		 } else if (infoViewType == TYPE_TOGGLEBUTTON) {
+			 setToggleButtonAttributes(context, infoMarginLeft, 1.875f);
+		 }
+	}
+
 	public void setTextViewAttributes(Context context, float marginLeft,
 			Float weight, String text, int textColor, float textSize) {
 		if (headerTextView == null) {
 			headerTextView = new TextView(context);
-			addView(headerTextView);
 		}
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
@@ -133,13 +150,13 @@ public class CustomFormCellView extends LinearLayout{
 		headerTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		headerTextView.setPadding(0, 0, 0, 0);
 		headerTextView.setText(text);
+		addView(headerTextView);
 	}
 
 	public void setWrapTextViewAttributes(Context context, float marginLeft,
 			Float weight, String text, int textColor, float textSize) {
 		if (infoTextView == null) {
 			infoTextView = new WrapTextView(context);
-			addView(infoTextView);
 		}
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
@@ -153,6 +170,7 @@ public class CustomFormCellView extends LinearLayout{
 		if (text != null) {
 			infoTextView.setWrapText(text);
 		}
+		addView(infoTextView);
 	}
 
 	@SuppressLint("NewApi")
@@ -161,7 +179,6 @@ public class CustomFormCellView extends LinearLayout{
 			Drawable drawable) {
 		if (infoEditText == null) {
 			infoEditText = new EditText(context);
-			addView(infoEditText);
 		}
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
@@ -174,12 +191,12 @@ public class CustomFormCellView extends LinearLayout{
 		infoEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		infoEditText.setText(text);
 		infoEditText.setPadding(0, 0, 0, 0);
+		addView(infoEditText);
 	}
 	
 	public void setToggleButtonAttributes(Context context, float marginLeft, Float weight) {
 		if (infoToggleButton == null) {
 			infoToggleButton = new ToggleButton(context);
-			addView(infoToggleButton);
 		}
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
@@ -188,6 +205,7 @@ public class CustomFormCellView extends LinearLayout{
 		infoEditText.setLayoutParams(layoutParams);
 		infoEditText.setGravity(Gravity.CENTER_VERTICAL);
 		infoEditText.setPadding(0, 0, 0, 0);
+		addView(infoToggleButton);
 	}
 	 
 	 @Override
@@ -197,7 +215,8 @@ public class CustomFormCellView extends LinearLayout{
 			heightMeasureSpec = MeasureSpec.makeMeasureSpec(DensityUtil.dip2Px(context, DEFAULT_HEIGHT), MeasureSpec.EXACTLY);
 		}
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		
+
+		 // 在onlayout中设置padding无效
 		int count = getChildCount();
 		int defalutPadding2x = DensityUtil.dip2Px(context, DEFAULT_PADDING * 2);
 		for(int i = 0; i < count; i++) {
@@ -216,16 +235,7 @@ public class CustomFormCellView extends LinearLayout{
 	 
 	 public void setInfoViewType(int type) {
 		 infoViewType = type;
-		 if (infoViewType == TYPE_EDITTEXT) {
-			 removeViewAt(1);
-			 setEdittextAttributes(context, 0, DEFAULT_INFOVIEW_WEIGHT, "", Color.BLACK, DensityUtil.sp2px(context, 17), null);
-		 } else if (infoViewType == TYPE_TEXTVIEW) {
-			 removeViewAt(1);
-			 setWrapTextViewAttributes(context, 0, DEFAULT_INFOVIEW_WEIGHT, "", Color.BLACK, DensityUtil.sp2px(context, 17));
-		 } else if (infoViewType == TYPE_TOGGLEBUTTON) {
-			 removeViewAt(1);
-			 setToggleButtonAttributes(context, 0, 1.875f);
-		 }
+		 addViews();
 	 }
 	
 	public TextView getHeaderTextView() {
@@ -245,10 +255,12 @@ public class CustomFormCellView extends LinearLayout{
 	}
 
 	public void setHeaderText(String headerText) {
+		this.headerText = headerText;
 		headerTextView.setText(headerText);
 	}
 	
 	public void setInfoText(String text) {
+		infoText = text;
 		infoTextView.setWrapText(text);
 	}
 }

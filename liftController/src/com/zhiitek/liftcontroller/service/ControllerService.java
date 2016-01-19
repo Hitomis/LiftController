@@ -1,22 +1,25 @@
 package com.zhiitek.liftcontroller.service;
 
-import java.util.Date;
-import java.util.Set;
-
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 import com.zhiitek.liftcontroller.components.ImageHelper;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.utils.AppUtil;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class ControllerService extends Service {
 	
@@ -96,13 +99,30 @@ public class ControllerService extends Service {
 		public void run() {
 			String lastClearTime = sharedPref.getString(AppConstant.KEY_LAST_CLEAR_DATE, AppUtil.getCurrentTimeStr());
 			float days = (new Date().getTime() - AppUtil.stringToTime(lastClearTime).getTime()) / (1000.f * 3600 * 24);
-			if (days > 7) {// 超过一周执行图片缓存清理
+			if (days > 7) {// 超过一周执行图片缓存清理和录音文件清理
 				ImageHelper.getInstance().clearCache();
+				clearRecordingFiles();
 				Editor editor = sharedPref.edit();
 				editor.putString(AppConstant.KEY_LAST_CLEAR_DATE, AppUtil.getCurrentTimeStr());
 				editor.commit();
 			}
 		};
+	}
+
+	/**
+	 * 清理录音文件
+	 */
+	private void clearRecordingFiles() {
+		String SAVE_RECORDING_PATH = String.format("%s/%s", Environment.getExternalStorageDirectory().getAbsolutePath(), "LiftController/Recording");
+		File dir = new File(SAVE_RECORDING_PATH);
+		if (dir.exists()) {
+			File[] fileList = dir.listFiles();
+			if (fileList != null && fileList.length > 0) {
+				for(File f : fileList) {
+					f.delete();
+				}
+			}
+		}
 	}
 
 }

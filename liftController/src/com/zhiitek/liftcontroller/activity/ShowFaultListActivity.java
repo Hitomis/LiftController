@@ -1,10 +1,5 @@
 package com.zhiitek.liftcontroller.activity;
 
-import java.util.ArrayList;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +10,17 @@ import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.adapter.BaseAdapterHelper;
 import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
-import com.zhiitek.liftcontroller.components.net.NetWorkHelper;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.model.FaultInfo;
 import com.zhiitek.liftcontroller.model.TaskInfo;
 import com.zhiitek.liftcontroller.views.CustomFormCellView;
 import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ShowFaultListActivity extends BaseActivity{
 
@@ -77,7 +76,7 @@ public class ShowFaultListActivity extends BaseActivity{
 							AlarmInfo alarmInfo = new AlarmInfo(resultJson.getString(NetWorkCons.JSON_KEY_LIFTNO), resultJson.getString(NetWorkCons.JSON_KEY_LIFTNAME), resultJson.getString(NetWorkCons.JSON_KEY_BLOCKNAME),
 									resultJson.getString(NetWorkCons.JSON_KEY_LIFTADD), resultJson.getString(NetWorkCons.JSON_KEY_FAULTLEVEL), resultJson.getString(NetWorkCons.JSON_KEY_FAULTNAME),
 									resultJson.getString(NetWorkCons.JSON_KEY_FAULTNO), resultJson.getString(NetWorkCons.JSON_KEY_FAULTTIME), resultJson.getString(NetWorkCons.JSON_KEY_FAULTDATA),
-									resultJson.getString(NetWorkCons.JSON_KEY_FAULTPHOTO), resultJson.getString(NetWorkCons.JSON_KEY_FAULTCOUNT));
+									resultJson.getString(NetWorkCons.JSON_KEY_FAULTPHOTO), resultJson.getString(NetWorkCons.JSON_KEY_FAULTCOUNT), resultJson.getString(NetWorkCons.JSON_KEY_FAULTAUDIO));
 							showAlarmDetails(alarmInfo);
 						} catch (JSONException e) {
 							showToast("网络数据错误, 请联系我们");

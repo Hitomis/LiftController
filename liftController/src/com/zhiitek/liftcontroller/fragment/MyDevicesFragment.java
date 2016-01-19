@@ -1,20 +1,11 @@
 package com.zhiitek.liftcontroller.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,8 +15,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,19 +27,23 @@ import com.zhiitek.liftcontroller.activity.NoticeMainActivity;
 import com.zhiitek.liftcontroller.adapter.BaseAdapterHelper;
 import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
-import com.zhiitek.liftcontroller.components.net.NetWorkHelper;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.model.DevicesInfo;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.utils.DialogUtil;
 import com.zhiitek.liftcontroller.views.DevicesInfoSearchDialog;
-import com.zhiitek.liftcontroller.views.RefreshableView;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToLoadListener;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToRefreshListener;
+import com.zhiitek.liftcontroller.views.WaterStretchListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  *  我的设备页面
  */
-public class MyDevicesFragment extends BaseFragment implements OnClickListener{
+public class MyDevicesFragment extends BaseFragment implements OnClickListener, WaterStretchListView.WaterStretchListener{
 	
 	private RelativeLayout relaySearch;
 	
@@ -58,9 +53,8 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 	
 	private LinearLayout linlayNoticeManager;
 	
-	private RefreshableView refreshableView;
 	/** 显示设备数据的listview */
-	private ListView lvDevicesData;
+	private WaterStretchListView waterStretchListView;
 	/** 下载的设备数据 */
 	public List<DevicesInfo> devicesInfoList;
 	
@@ -89,9 +83,9 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 	@Override
 	protected void findViewById() {
 		relaySearch = (RelativeLayout) view.findViewById(R.id.relay_search);
-		refreshableView = (RefreshableView) view.findViewById(R.id.rv_devices);
-		refreshableView.setFooterView();
-		lvDevicesData = (ListView) view.findViewById(R.id.lv_devices_data);
+		waterStretchListView = (WaterStretchListView) view.findViewById(R.id.wsl_devices_data);
+		waterStretchListView.setWaterStretchListViewListener(this);
+		waterStretchListView.setPushLoadEnable(false);
 		parentView = getActivity().findViewById(R.id.linlay_conents);
 		titleView = getActivity().findViewById(R.id.relay_titles);
 		linlayNoticeManager = (LinearLayout) view.findViewById(R.id.linlay_notice_manager);
@@ -100,25 +94,9 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 
 	@Override
 	protected void setListener() {
-		lvDevicesData.setOnItemClickListener(fragmentItemClickListener);
+		waterStretchListView.setOnItemClickListener(fragmentItemClickListener);
 		relaySearch.setOnClickListener(this);
 		linlayNoticeManager.setOnClickListener(this);
-		refreshableView.setOnRefreshListener(new PullToRefreshListener() {
-			
-			@Override
-			public void onRefresh() {
-				currentIndexPage = 0;//刷新数据时,更新第一页内容
-				getDevicesDataListWithoutPrompt();
-			}
-		}, 2);
-		refreshableView.setOnLoadListener(new PullToLoadListener() {
-			
-			@Override
-			public void onLoad() {
-				currentIndexPage++;//每次加载更多,都刷新下一页内容
-				getDevicesDataListWithoutPrompt();
-			}
-		});
 	}
 	
 	/**
@@ -191,23 +169,24 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 	 */
 	private void getDevicesListSucess(JSONObject resultJson) throws JSONException {
 		totalDeviceCounts = resultJson.getInt("total");//获取数据总条数
+		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的设备(共%d台)", totalDeviceCounts));// 更新title
 		if (currentIndexPage == 0) {
 			devicesInfoList.addAll(0, convertLiftInfo(resultJson.getJSONArray("infoList")));
-			refreshableView.finishRefreshing();
+			waterStretchListView.stopRefresh(true);
 		} else if (currentIndexPage == 1) {
 			devicesInfoList.clear();//更新数据时显示第一页数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
-			refreshableView.finishRefreshing();
+//			waterStretchListView.stopRefresh(true);
 		} else if (currentIndexPage > 1){//每次加载更多,直接添加数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
-			refreshableView.finishLoading();
+			waterStretchListView.stopLoadMore();
 		}
 		mDvicesInfoAdapter.notifyDataSetChanged();
 		showBlank(devicesInfoList);
 		if (mDvicesInfoAdapter.getCount() >= totalDeviceCounts) {//加载的数据比服务器总数据还多时,不再显示加载更多
-			refreshableView.setFooterViewShow(false);
+			waterStretchListView.setPushLoadEnable(false);
 		} else {
-			refreshableView.setFooterViewShow(true);
+			waterStretchListView.setPushLoadEnable(true);
 		}
 	}
 
@@ -216,10 +195,10 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 	 */
 	private void getDevicesListFailed() {
 		if (currentIndexPage == 0) {
-			refreshableView.finishRefreshing();
+			waterStretchListView.stopRefresh(false);
 		} else if (currentIndexPage > 1){
 			currentIndexPage--;
-			refreshableView.finishLoading();
+			waterStretchListView.stopLoadMore();
 		}
 		showBlank(devicesInfoList);
 	}
@@ -333,7 +312,7 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 				viewHolder.setText(R.id.tv_lift_status, item.getRunningStatus());
 			}
 		};
-		lvDevicesData.setAdapter(mDvicesInfoAdapter);
+		waterStretchListView.setAdapter(mDvicesInfoAdapter);
 	}
 
 	private PopupWindow popup;
@@ -399,7 +378,19 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 		popouView.findViewById(R.id.tv_scrap).setOnClickListener(popouViewClickListener);
 		popouView.findViewById(R.id.tv_reboot).setOnClickListener(popouViewClickListener);
 	}
-	
+
+	@Override
+	public void onRefresh() {
+		currentIndexPage = 0;//刷新数据时,更新第一页内容
+		getDevicesDataListWithoutPrompt();
+	}
+
+	@Override
+	public void onLoadMore() {
+		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		getDevicesDataListWithoutPrompt();
+	}
+
 	/**
 	 * 自定义点击事件
 	 * @author Administrator
@@ -472,8 +463,8 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener{
 		if (liftNo != null && status != null) {
 			int changeItemPosition = findItemPositionByLiftNoAndChangeStatus(liftNo, status);
 			if (changeItemPosition >= 0) {
-				((BaseAdapterHelper<DevicesInfo>)lvDevicesData.getAdapter()).notifyDataSetChanged();
-				lvDevicesData.setSelection(changeItemPosition);
+				((BaseAdapterHelper<DevicesInfo>)((HeaderViewListAdapter)waterStretchListView.getAdapter()).getWrappedAdapter()).notifyDataSetChanged();
+				waterStretchListView.setSelection(changeItemPosition);
 			}
 		}
 	}

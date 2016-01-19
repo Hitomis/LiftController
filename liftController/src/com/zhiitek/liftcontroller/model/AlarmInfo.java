@@ -26,14 +26,16 @@ public class AlarmInfo implements Serializable{
 	private String alarmTime;
 	
 	private String alarmData;
-	
+	/** "1"表示有照片 "0"表示没有照片 */
 	private String alarmPhoto;
 	
 	private String alarmCount;
+	/** "1"表示有录音 "0"表示没有录音 */
+	private String alarmAudio;
 	
 	public AlarmInfo(String liftNo, String liftName, String liftCommunity, String liftAddress, 
 			String alarmLevel, String alarmName, String alarmCode, String alarmTime, String alarmData, String alarmPhoto,
-			String alarmCount) {
+			String alarmCount, String alarmAudio) {
 		super();
 		this.liftNo = liftNo;
 		this.liftName = liftName;
@@ -46,6 +48,7 @@ public class AlarmInfo implements Serializable{
 		this.alarmData = alarmData;
 		this.alarmPhoto = alarmPhoto;
 		this.alarmCount = alarmCount;
+		this.alarmAudio = alarmAudio;
 	}
 	
 	public AlarmInfo() {
@@ -141,5 +144,12 @@ public class AlarmInfo implements Serializable{
 	public void setAlarmCount(String alarmCount) {
 		this.alarmCount = alarmCount;
 	}
-	
+
+	public String getAlarmAudio() {
+		return alarmAudio;
+	}
+
+	public void setAlarmAudio(String alarmAudio) {
+		this.alarmAudio = alarmAudio;
+	}
 }
