@@ -94,6 +94,7 @@ public class WaterStretchListViewFooter extends LinearLayout {
 	public void hide() {
 		LayoutParams lp = (LayoutParams) mContentView.getLayoutParams();
 		lp.height = 0;
+//		mContentView.setVisibility(View.GONE);
 		mContentView.setLayoutParams(lp);
 	}
 
@@ -103,6 +104,7 @@ public class WaterStretchListViewFooter extends LinearLayout {
 	public void show() {
 		LayoutParams lp = (LayoutParams) mContentView.getLayoutParams();
 		lp.height = LayoutParams.WRAP_CONTENT;
+//		mContentView.setVisibility(View.VISIBLE);
 		mContentView.setLayoutParams(lp);
 	}
 

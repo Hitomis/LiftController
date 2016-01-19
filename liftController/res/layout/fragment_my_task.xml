@@ -29,22 +29,17 @@
         android:textColor="@color/cpb_white"
         android:textSize="18sp" />
 
-    <com.zhiitek.liftcontroller.views.RefreshableView
-        android:id="@+id/refreshable_view"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/btn_resolve_task" >
-
-        <ListView
-            android:id="@+id/lv_my_task"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:cacheColorHint="@android:color/transparent"
-            android:divider="@color/dividing_listview_color"
-            android:dividerHeight="1dp"
-            android:scrollbars="none" >
-        </ListView>
-    </com.zhiitek.liftcontroller.views.RefreshableView>
+    <com.zhiitek.liftcontroller.views.WaterStretchListView
+        android:id="@+id/wsl_my_task"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_resolve_task"
+        android:cacheColorHint="@android:color/transparent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="@color/dividing_listview_color"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"/>
 
     <ImageView
         android:id="@+id/iv_prompt"

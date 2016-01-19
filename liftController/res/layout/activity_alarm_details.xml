@@ -208,6 +208,18 @@
         android:layout_height="1px"
         android:background="@color/dividing_deep_line_color" />
 
+    <Button
+        android:id="@+id/btn_download_and_play_recording"
+        app:layout_heightPercent="7%"
+        app:layout_widthPercent="50%"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/btn_blue_background"
+        android:textColor="@color/cpb_white"
+        android:textSize="16sp"
+        android:text="下载录音"
+        android:visibility="gone"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >

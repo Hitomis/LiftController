@@ -1,20 +1,11 @@
 package com.zhiitek.liftcontroller.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,32 +14,35 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.activity.AlarmDetailsActivity;
 import com.zhiitek.liftcontroller.adapter.BaseAdapterHelper;
 import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
-import com.zhiitek.liftcontroller.components.net.NetWorkHelper;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.views.AlarmsInfoSearchDialog;
-import com.zhiitek.liftcontroller.views.RefreshableView;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToLoadListener;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToRefreshListener;
+import com.zhiitek.liftcontroller.views.WaterStretchListView;
 
-public class MyAlarmFragment extends BaseFragment implements OnClickListener{
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MyAlarmFragment extends BaseFragment implements OnClickListener, WaterStretchListView.WaterStretchListener{
 	
 	private RelativeLayout relaySearch;
 	
 	private View view, parentView, titleView;
 	
-	private RefreshableView refreshableView;
 	/** 显示告警数据的listview */
-	private ListView lvAlarmsData;
+	private WaterStretchListView waterStretchListView;
 	/** 服务器下载的告警数据 */
 	public List<AlarmInfo> alarmInfoList;
 	
@@ -71,32 +65,17 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 	@Override
 	protected void findViewById() {
 		relaySearch = (RelativeLayout) view.findViewById(R.id.relay_search);
-		refreshableView = (RefreshableView) view.findViewById(R.id.rv_alarms);
-		refreshableView.setFooterView();
-		lvAlarmsData = (ListView) view.findViewById(R.id.lv_alarms_data);
+		waterStretchListView = (WaterStretchListView) view.findViewById(R.id.wsl_alarms_data);
 		parentView = getActivity().findViewById(R.id.linlay_conents);
 		titleView = getActivity().findViewById(R.id.relay_titles);
 	}
 
 	@Override
 	protected void setListener() {
-		lvAlarmsData.setOnItemClickListener(itemClickListener);
+		waterStretchListView.setOnItemClickListener(itemClickListener);
+		waterStretchListView.setWaterStretchListViewListener(this);
+		waterStretchListView.setPushLoadEnable(false);
 		relaySearch.setOnClickListener(this);
-		refreshableView.setOnRefreshListener(new PullToRefreshListener() {
-			
-			@Override
-			public void onRefresh() {
-				currentIndexPage = 0;//刷新数据时,更新第一页内容
-				getAlarmListWithoutPrompt();
-			}
-		}, 1);
-		refreshableView.setOnLoadListener(new PullToLoadListener() {
-			@Override
-			public void onLoad() {
-				currentIndexPage++;//每次加载更多,都刷新下一页内容
-				getAlarmListWithoutPrompt();
-			}
-		});
 	}
 	
 	private OnItemClickListener itemClickListener = new OnItemClickListener() {
@@ -106,7 +85,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 				long id) {
 			//点击一条告警数据时,跳转到AlarmDetailsActivity并将该告警数据传过去
 			Intent intent = new Intent(mContext, AlarmDetailsActivity.class);
-			intent.putExtra("alarmInfo", ((BaseAdapterHelper<AlarmInfo>)lvAlarmsData.getAdapter()).getItem(position));
+			intent.putExtra("alarmInfo", (AlarmInfo)waterStretchListView.getAdapter().getItem(position));
 			startActivity(intent);
 		}
 	};
@@ -164,23 +143,24 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 	 */
 	private void getAlarmListSuccess(JSONObject resultJson)	throws JSONException {
 		totalAlarmCounts = resultJson.getInt(NetWorkCons.JSON_KEY_TOTAL);
+		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的告警(共%d条)", totalAlarmCounts));// 更新title
 		if (currentIndexPage == 0) {
-			refreshableView.finishRefreshing();
+			waterStretchListView.stopRefresh(true);
 			alarmInfoList.addAll(0, convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
 		} else if (currentIndexPage == 1) {
-			refreshableView.finishRefreshing();
+//			waterStretchListView.stopRefresh(true);
 			alarmInfoList.clear();
 			alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
 		} else if (currentIndexPage > 1) {
-			refreshableView.finishLoading();
+			waterStretchListView.stopLoadMore();
 			alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
 		}
 		mAlarmsInfoAdapter.notifyDataSetChanged();
 		showBlank(alarmInfoList);
 		if (mAlarmsInfoAdapter.getCount() >= totalAlarmCounts) {
-			refreshableView.setFooterViewShow(false);
+			waterStretchListView.setPushLoadEnable(false);
 		} else {
-			refreshableView.setFooterViewShow(true);
+			waterStretchListView.setPushLoadEnable(true);
 		}
 	}
 	
@@ -189,10 +169,10 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 	 */
 	private void getAlarmListFailed() {
 		if (currentIndexPage == 0) {
-			refreshableView.finishRefreshing();
+			waterStretchListView.stopRefresh(false);
 		} else if (currentIndexPage > 1){
 			currentIndexPage--;
-			refreshableView.finishLoading();
+			waterStretchListView.stopLoadMore();
 		}
 		showBlank(alarmInfoList);
 	}
@@ -212,7 +192,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 			info = new AlarmInfo(jobject.getString(NetWorkCons.JSON_KEY_LIFTNO), jobject.getString(NetWorkCons.JSON_KEY_LIFTNAME), jobject.getString(NetWorkCons.JSON_KEY_BLOCKNAME),
 					jobject.getString(NetWorkCons.JSON_KEY_LIFTADD), jobject.getString(NetWorkCons.JSON_KEY_FAULTLEVEL), jobject.getString(NetWorkCons.JSON_KEY_FAULTNAME),
 					jobject.getString(NetWorkCons.JSON_KEY_FAULTNO), jobject.getString(NetWorkCons.JSON_KEY_FAULTTIME), jobject.getString(NetWorkCons.JSON_KEY_FAULTDATA),
-					jobject.getString(NetWorkCons.JSON_KEY_FAULTPHOTO), jobject.getString(NetWorkCons.JSON_KEY_FAULTCOUNT));
+					jobject.getString(NetWorkCons.JSON_KEY_FAULTPHOTO), jobject.getString(NetWorkCons.JSON_KEY_FAULTCOUNT), jobject.getString(NetWorkCons.JSON_KEY_FAULTAUDIO));
 			infoList.add(info);
 		}
 		return infoList;
@@ -247,7 +227,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 					viewHolder.setText(R.id.tv_alarm_time, item.getAlarmTime());
 				}
 			};
-		lvAlarmsData.setAdapter(mAlarmsInfoAdapter);
+		waterStretchListView.setAdapter(mAlarmsInfoAdapter);
 	}
 
 	@Override
@@ -293,4 +273,15 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener{
 		animator.start();
 	}
 
+	@Override
+	public void onRefresh() {
+		currentIndexPage = 0;//刷新数据时,更新最新的内容
+		getAlarmListWithoutPrompt();
+	}
+
+	@Override
+	public void onLoadMore() {
+		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		getAlarmListWithoutPrompt();
+	}
 }

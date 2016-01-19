@@ -129,6 +129,8 @@ public class NetWorkCons {
 	public static final String JSON_KEY_EMSG = "emsg";
 	/** 告警总数 */
 	public static final String JSON_KEY_FAULTCOUNT = "faultCount";
+	/** 告警录音 */
+	public static final String JSON_KEY_FAULTAUDIO = "faultAudio";
 	/** 任务总数 */
 	public static final String JSON_KEY_TASKCOUNT = "taskCount";
 	/** 任务列表 */
@@ -218,7 +220,10 @@ public class NetWorkCons {
 	/** 获取任务和告警的数量接口的URL */
 	private static final String URL_GET_TASK_AND_ALARM_COUNT_DOMAIN = "/liftman/liftman/appAction!doNotNeedSession_countEmergAndTask.action";
 	/** 下载告警截图接口的URL */
-	private static final String URL_DOWNLOAD_ALARM_PHOTO_DOMAIN = "/liftman/liftman/temergencyAction!doNotNeedSession_TemergencyImage.action?username=%s&liftId=%s&faultImage=%s&page=%d";
+	private static final String URL_DOWNLOAD_ALARM_PHOTO_DOMAIN = "/liftman/liftman/terminaAction!doNotNeedSession_TemergencyImage.action?username=%s&liftId=%s&faultImage=%s&page=%d";
+	/** 下载告警录音接口的URL */
+	private static final String URL_DOWNLOAD_ALARM_RECORDING_DOMAIN = "/liftman/liftman/terminaAction!doNotNeedSession_TemergencySound.action?username=%s&liftId=%s&faultImage=%s";
+	/** 下载一个告警的详细信息的URL */
 	private static final String URL_DOWNLOAD_ONE_ALARM_DETAILS_DOMAIN = "/liftman/liftman/appAction!doNotNeedSession_downLoadFault.action";
 	/** 通告列表接口URL*/
 	private static final String URL_DOWNLOAD_NOTICE_LIST = "/liftman/liftman/appAction!doNotNeedSession_downLoadTnotices.action";
@@ -237,7 +242,7 @@ public class NetWorkCons {
 			host = "www.zhiitek.com:8081";
 			break;
 		case HOST_ENVIRTYPE_MINE:
-			host= "136.158.27.30:8080";
+			host= "136.158.27.183:8080";
 			break;
 		default:
 			break;
@@ -290,6 +295,11 @@ public class NetWorkCons {
 	 * 下载告警截图的URL
 	 */
 	public static String downloadAlarmPhotoUrl = String.format("%s%s%s", URL_PREFIX, host(HOST_ENVIRTYPE_CURRENT), URL_DOWNLOAD_ALARM_PHOTO_DOMAIN);
+
+	/**
+	 * 下载告警录音的URL
+	 */
+	public static String downloadAlarmRecordingUrl = String.format("%s%s%s", URL_PREFIX, host(HOST_ENVIRTYPE_CURRENT), URL_DOWNLOAD_ALARM_RECORDING_DOMAIN);
 	
 	/**
 	 * 获取重启设备URL

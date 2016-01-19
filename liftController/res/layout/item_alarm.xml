@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/item_listview_selector"
+    android:padding="8dp"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp" >
+        android:layout_margin="2dp" >
 
         <TextView
             android:id="@+id/tv_lift_no"
@@ -31,7 +32,7 @@
         android:id="@+id/tv_lift_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_margin="2dp"
         android:drawableLeft="@drawable/ic_lift_address"
         android:drawablePadding="6dp"
         android:textColor="@color/text_color"
@@ -40,7 +41,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="2dp"
         android:orientation="horizontal" >
 
         <TextView

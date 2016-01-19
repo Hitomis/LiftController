@@ -75,6 +75,7 @@ public class WaterStretchListView extends ListView implements OnScrollListener, 
 
 	public WaterStretchListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
 		initWithContext(context);
 	}
 
@@ -224,6 +225,7 @@ public class WaterStretchListView extends ListView implements OnScrollListener, 
 	}
 
 	private void updateFooterHeight(float delta) {
+
 		int height = mFooterView.getBottomMargin() + (int) delta;
 		if (mEnablePushLoad && !mPullLoading) {
 			if (height > PULL_LOAD_MORE_DELTA) { // height enough to invoke load more.

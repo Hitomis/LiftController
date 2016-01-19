@@ -1,11 +1,5 @@
 package com.zhiitek.liftcontroller.fragment;
 
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import com.zhiitek.liftcontroller.R;
 import com.zhiitek.liftcontroller.activity.ResolveInspTaskActivity;
@@ -29,15 +23,20 @@ import com.zhiitek.liftcontroller.model.FaultInfo;
 import com.zhiitek.liftcontroller.model.InspectInfo;
 import com.zhiitek.liftcontroller.model.TaskInfo;
 import com.zhiitek.liftcontroller.service.task.UpdateCountsTask;
-import com.zhiitek.liftcontroller.views.RefreshableView;
-import com.zhiitek.liftcontroller.views.RefreshableView.PullToRefreshListener;
+import com.zhiitek.liftcontroller.views.WaterStretchListView;
 
-public class MyTaskFragment extends BaseFragment{
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-	private ListView mTaskList;
+import java.util.ArrayList;
+
+public class MyTaskFragment extends BaseFragment implements WaterStretchListView.WaterStretchListener {
+
 	private Button mResolveTaskBtn, mChooseTaskBtn;
 	private BaseAdapterHelper<TaskInfo> mAdapterHelper;
-	private RefreshableView mRefreshableView;
+	private WaterStretchListView waterStretchListView;
+
 	/** 下载的所有任务数据 */
 	private ArrayList<TaskInfo> mTaskInfos;
 	
@@ -45,6 +44,8 @@ public class MyTaskFragment extends BaseFragment{
 	private boolean isResolvingTask = false;
 	/** 任务列表中是否含有告警任务 */
 	private boolean hasFaultTask = false;
+
+	private boolean isPullToRefresh = false;
 	
 	/** 准备解决的任务列表 */
 	private ArrayList<TaskInfo> mPrepareResolveTaskInfos;
@@ -58,10 +59,10 @@ public class MyTaskFragment extends BaseFragment{
 
 	@Override
 	protected void findViewById() {
-		mTaskList = (ListView) mView.findViewById(R.id.lv_my_task);
 		mResolveTaskBtn = (Button) mView.findViewById(R.id.btn_resolve_task);
-		mRefreshableView = (RefreshableView) mView.findViewById(R.id.refreshable_view);
-		mRefreshableView.setFooterView();
+		waterStretchListView = (WaterStretchListView) mView.findViewById(R.id.wsl_my_task);
+		waterStretchListView.setWaterStretchListViewListener(this);
+		waterStretchListView.setPushLoadEnable(false);
 		mChooseTaskBtn = (Button) mView.findViewById(R.id.btn_choose_task);
 	}
 
@@ -74,18 +75,7 @@ public class MyTaskFragment extends BaseFragment{
 	@Override
 	protected void setListener() {
 		mResolveTaskBtn.setOnClickListener(btnResolveListener);
-		mTaskList.setOnItemClickListener(taskListItemClick);
-		mRefreshableView.setOnRefreshListener(new PullToRefreshListener() {
-			@Override
-			public void onRefresh() {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				pullToRefreshTasklist();
-			}
-		}, 0);
+		waterStretchListView.setOnItemClickListener(taskListItemClick);
 		mChooseTaskBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -107,19 +97,21 @@ public class MyTaskFragment extends BaseFragment{
 		public void callback(JSONObject resultJson) {
 			if (resultJson != null) {
 				try {
-					mRefreshableView.finishRefreshing();
-					mTaskInfos = convertTaskInfo(resultJson.getJSONArray("taskList"));
+					if (isPullToRefresh) waterStretchListView.stopRefresh(true);
+					mTaskInfos.clear();
+					mTaskInfos.addAll(convertTaskInfo(resultJson.getJSONArray("taskList")));
 					resetBtnStatus();
-					initTaskAdapter(mTaskInfos);
 					showBlank(mTaskInfos);
-					mTaskList.setAdapter(mAdapterHelper);
+					mAdapterHelper.notifyDataSetChanged();
+					// 更新title
+					((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的任务(共%d条)", mTaskInfos.size()));
 				} catch (Exception e) {
-					mRefreshableView.finishRefreshing();
+					if (isPullToRefresh) waterStretchListView.stopRefresh(false);
 					showToast("网络数据错误, 请联系我们");
 					showBlank(mTaskInfos);
 				}
 			} else {
-				mRefreshableView.finishRefreshing();
+				if (isPullToRefresh) waterStretchListView.stopRefresh(false);
 				showBlank(mTaskInfos);
 			}
 		}
@@ -130,6 +122,7 @@ public class MyTaskFragment extends BaseFragment{
 	 */
 	private void refreshTasklist() {
 		try {
+			isPullToRefresh = false;
 			JSONObject jsonParams = initGetTaskListJsonParameter();
 			netWorkHelper.execHttpNet(NetWorkCons.getTaskUrl, jsonParams, netCallback);
 		} catch (JSONException e) {
@@ -142,10 +135,11 @@ public class MyTaskFragment extends BaseFragment{
 	 */
 	private void pullToRefreshTasklist() {
 		try {
+			isPullToRefresh = true;
 			JSONObject jsonParams = initGetTaskListJsonParameter();
 			netWorkHelper.execHttpNetWithoutPrompt(NetWorkCons.getTaskUrl, jsonParams, netCallback);
 		} catch (JSONException e) {
-			mRefreshableView.finishRefreshing();
+			waterStretchListView.stopRefresh(false);
 			showBlank(mTaskInfos);
 		}
 	}
@@ -278,7 +272,7 @@ public class MyTaskFragment extends BaseFragment{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			TaskInfo info = mTaskInfos.get(position);
+			TaskInfo info = (TaskInfo)waterStretchListView.getAdapter().getItem(position);
 			if(info.getTaskType().equals(TaskInfo.FAULT_TASK_TYPE)){//告警任务,显示任务详情
 				Intent intent = new Intent(mContext, ShowFaultListActivity.class);
 				Bundle bundle = new Bundle();
@@ -318,6 +312,8 @@ public class MyTaskFragment extends BaseFragment{
 	protected void dealProcessLogic() {
 		mTaskInfos = new ArrayList<TaskInfo>();
 		mPrepareResolveTaskInfos = new ArrayList<TaskInfo>();
+		initTaskAdapter(mTaskInfos);
+		waterStretchListView.setAdapter(mAdapterHelper);
 		refreshTasklist();
 	}
 	
@@ -402,5 +398,15 @@ public class MyTaskFragment extends BaseFragment{
 				}
 			}
 		};
+	}
+
+	@Override
+	public void onRefresh() {
+		pullToRefreshTasklist();
+	}
+
+	@Override
+	public void onLoadMore() {
+
 	}
 }

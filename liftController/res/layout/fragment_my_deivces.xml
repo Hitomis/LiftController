@@ -55,26 +55,17 @@
             android:visibility="visible" />
     </LinearLayout>
 
-    <com.zhiitek.liftcontroller.views.RefreshableView
-        android:id="@+id/rv_devices"
+    <com.zhiitek.liftcontroller.views.WaterStretchListView
+        android:id="@+id/wsl_devices_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/linlay_notice_manager"
         android:layout_below="@id/diving_line"
-        android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/lv_devices_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/relay_search"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:divider="@color/dividing_listview_color"
-            android:dividerHeight="1dp"
-            android:scrollbars="none" >
-        </ListView>
-    </com.zhiitek.liftcontroller.views.RefreshableView>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:divider="@color/dividing_listview_color"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"/>
 
     <ImageView
         android:id="@+id/iv_prompt"
