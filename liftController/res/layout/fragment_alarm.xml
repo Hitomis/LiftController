@@ -57,8 +57,6 @@
         android:layout_below="@id/diving_line"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:divider="@color/dividing_listview_color"
         android:dividerHeight="1dp"
         android:scrollbars="none"/>
