@@ -75,11 +75,12 @@ public class WaterStretchListView extends ListView implements OnScrollListener, 
 
 	public WaterStretchListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		setLayerType(LAYER_TYPE_SOFTWARE, null);
+		setFooterDividersEnabled(false);
 		initWithContext(context);
 	}
 
 	private void initWithContext(Context context) {
+
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		super.setOnScrollListener(this);
 

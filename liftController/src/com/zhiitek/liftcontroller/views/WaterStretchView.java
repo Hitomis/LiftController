@@ -100,6 +100,7 @@ public class WaterStretchView extends View {
 
 	public WaterStretchView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		setLayerType(LAYER_TYPE_SOFTWARE, null);
 		init(context, attrs);
 	}
 
