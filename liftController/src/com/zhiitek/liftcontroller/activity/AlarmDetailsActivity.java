@@ -132,7 +132,7 @@ public class AlarmDetailsActivity extends BaseActivity{
 		if (!dir.exists()) {
 			dir.mkdir();
 		}
-		if (alarmInfo.getAlarmAudio().equals("1")) { // 有录音文件
+		if ("1".equals(alarmInfo.getAlarmAudio())) { // 有录音文件
 			scbDownAndPlayRecording.setVisibility(View.VISIBLE);
 			String path = String.format("%s/%s_%s.mp3", SAVE_RECORDING_PATH, alarmInfo.getLiftNo(), sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())));
 			File file = new File(path);
@@ -144,7 +144,7 @@ public class AlarmDetailsActivity extends BaseActivity{
 				scbDownAndPlayRecording.setText("下载");
 			}
 		}
-		if (alarmInfo.getAlarmPhoto().equals("1")) { // 有告警图片
+		if ("1".equals(alarmInfo.getAlarmPhoto())) { // 有告警图片
 			String uri = String.format(NetWorkCons.downloadAlarmPhotoUrl,
 					getUserId(), 
 					alarmInfo.getLiftNo(), 
