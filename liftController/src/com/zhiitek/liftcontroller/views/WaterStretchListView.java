@@ -75,6 +75,7 @@ public class WaterStretchListView extends ListView implements OnScrollListener, 
 
 	public WaterStretchListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		setHeaderDividersEnabled(false);
 		setFooterDividersEnabled(false);
 		initWithContext(context);
 	}
