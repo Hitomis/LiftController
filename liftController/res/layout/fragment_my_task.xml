@@ -5,8 +5,8 @@
 
     <Button
         android:id="@+id/btn_choose_task"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_margin="20dp"
@@ -14,12 +14,12 @@
         android:enabled="false"
         android:text="选择告警任务"
         android:textColor="@color/cpb_white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btn_resolve_task"
-        android:layout_width="140dp"
-        android:layout_height="55dp"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="20dp"
@@ -27,7 +27,7 @@
         android:enabled="false"
         android:text="解决告警任务"
         android:textColor="@color/cpb_white"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <com.zhiitek.liftcontroller.views.WaterStretchListView
         android:id="@+id/wsl_my_task"

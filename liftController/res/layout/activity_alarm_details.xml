@@ -208,17 +208,42 @@
         android:layout_height="1px"
         android:background="@color/dividing_deep_line_color" />
 
-    <Button
-        android:id="@+id/btn_download_and_play_recording"
-        app:layout_heightPercent="7%"
-        app:layout_widthPercent="50%"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/btn_blue_background"
-        android:textColor="@color/cpb_white"
-        android:textSize="16sp"
-        android:text="下载录音"
-        android:visibility="gone"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="2.5"
+            android:text="告警录音"
+            android:textColor="@color/text_title_color"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7.5"
+            android:gravity="center">
+            <com.zhiitek.liftcontroller.views.StateChangeButton
+                android:id="@+id/scb_download_and_play_recording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color" />
 
     <RelativeLayout
         android:layout_width="match_parent"

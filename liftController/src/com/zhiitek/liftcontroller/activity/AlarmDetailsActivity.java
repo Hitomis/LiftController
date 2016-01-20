@@ -6,7 +6,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import com.zhiitek.liftcontroller.components.net.NetWorkCons;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.utils.AppUtil;
 import com.zhiitek.liftcontroller.utils.SoundService;
-import com.zhiitek.liftcontroller.views.CustomProgressDialog;
+import com.zhiitek.liftcontroller.views.StateChangeButton;
 import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
 import org.json.JSONException;
@@ -31,9 +30,7 @@ public class AlarmDetailsActivity extends BaseActivity{
 	
 	private ImageHelper imageHelper;
 
-	private CustomProgressDialog customProgressDialog;
-
-	private Button btnDownAndPlayRecording;
+	private StateChangeButton scbDownAndPlayRecording;
 
 	private AlarmInfo alarmInfo;
 
@@ -64,33 +61,34 @@ public class AlarmDetailsActivity extends BaseActivity{
 	protected void findViewById() {
 		setTitleBar("告警详情", null);
 		ivShowPhoto = (ImageView) findViewById(R.id.iv_show_alarm_photo);
-		btnDownAndPlayRecording = (Button) findViewById(R.id.btn_download_and_play_recording);
+		scbDownAndPlayRecording = (StateChangeButton) findViewById(R.id.scb_download_and_play_recording);
 	}
 
 	@Override
 	protected void setListener() {
-		btnDownAndPlayRecording.setOnClickListener(new View.OnClickListener() {
+
+		scbDownAndPlayRecording.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (!isRecordingDownloaded) {
+					scbDownAndPlayRecording.startCircling();
 					String url = String.format(NetWorkCons.downloadAlarmRecordingUrl, getUserId(), alarmInfo.getLiftNo(), sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())));
 					String path = String.format("%s/%s_%s.mp3", SAVE_RECORDING_PATH, alarmInfo.getLiftNo(), sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())));
 					downloadRecording(url, path);
 				} else {
-					btnDownAndPlayRecording.setText("播放中...");
-					btnDownAndPlayRecording.setEnabled(false);
+					scbDownAndPlayRecording.startCircling();
 					try {
 						soundService.playVoice(recordingFile.getAbsolutePath(), new MediaPlayer.OnCompletionListener() {
 							@Override
 							public void onCompletion(MediaPlayer mp) {
-								btnDownAndPlayRecording.setText("播放录音");
-								btnDownAndPlayRecording.setEnabled(true);
+								scbDownAndPlayRecording.reset();
+								scbDownAndPlayRecording.setText("播放");
 							}
 						});
 					} catch (Exception e) {
 						showToast("录音文件已损坏,无法播放!");
-						btnDownAndPlayRecording.setText("播放录音");
-						btnDownAndPlayRecording.setEnabled(true);
+						scbDownAndPlayRecording.reset();
+						scbDownAndPlayRecording.setText("播放");
 					}
 				}
 			}
@@ -135,13 +133,15 @@ public class AlarmDetailsActivity extends BaseActivity{
 			dir.mkdir();
 		}
 		if (alarmInfo.getAlarmAudio().equals("1")) { // 有录音文件
-			btnDownAndPlayRecording.setVisibility(View.VISIBLE);
+			scbDownAndPlayRecording.setVisibility(View.VISIBLE);
 			String path = String.format("%s/%s_%s.mp3", SAVE_RECORDING_PATH, alarmInfo.getLiftNo(), sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())));
 			File file = new File(path);
 			if (file.exists()) { // 录音文件已经下载过
 				isRecordingDownloaded = true;
-				btnDownAndPlayRecording.setText("播放录音");
+				scbDownAndPlayRecording.setText("播放");
 				recordingFile = file;
+			} else {
+				scbDownAndPlayRecording.setText("下载");
 			}
 		}
 		if (alarmInfo.getAlarmPhoto().equals("1")) { // 有告警图片
@@ -159,7 +159,6 @@ public class AlarmDetailsActivity extends BaseActivity{
 	 * @param path
 	 */
 	private void downloadRecording(final String url, final String path) {
-		showDlg();
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -179,29 +178,19 @@ public class AlarmDetailsActivity extends BaseActivity{
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			scbDownAndPlayRecording.reset();
 			switch (msg.what) {
 				case SAVE_RECORDING_SUCCESS:
 					isRecordingDownloaded = true;
-					btnDownAndPlayRecording.setText("播放录音");
+					scbDownAndPlayRecording.setText("播放");
 					break;
 				case SAVE_RECORDING_FAILURE:
 					showToast("录音文件下载缺失!");
+					scbDownAndPlayRecording.setText("下载");
 					break;
 			}
-			dismissDlg();
 		}
 	};
-
-	private void showDlg() {
-		customProgressDialog = new CustomProgressDialog(this, R.style.loading_dialog);
-		customProgressDialog.show();
-	}
-
-	private void dismissDlg() {
-		if (customProgressDialog != null) {
-			customProgressDialog.dismiss();
-		}
-	}
 
 	@Override
 	protected void onDestroy() {

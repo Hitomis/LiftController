@@ -87,7 +87,6 @@ public class SoundService {
 			mp.start();
 		} else {
 			mp.setOnCompletionListener(completionListener);
-			mp.prepare();
 			mp.start();
 		}
 	}
