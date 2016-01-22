@@ -27,7 +27,7 @@ public class ImageHelper {
 	
 	private OnLoadCompleteListener loadCompleteListener;
 	
-	private interface OnLoadCompleteListener {
+	public interface OnLoadCompleteListener {
 		public void loadCompleteListener(Bitmap bitmap);
 	} 
 	

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+                                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                                    android:layout_width="match_parent"
+                                                                    android:layout_height="match_parent"
+                                                                    android:orientation="vertical">
 
     <include
         android:id="@+id/title_layout"
+        layout="@layout/layout_common_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_heightPercent="8%"
-        layout="@layout/layout_common_header" />
+        app:layout_heightPercent="8%"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -27,20 +27,20 @@
             android:layout_weight="2.5"
             android:text="编号"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_lift_no"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -57,20 +57,20 @@
             android:layout_weight="2.5"
             android:text="电梯名称"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_lift_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -87,20 +87,20 @@
             android:layout_weight="2.5"
             android:text="小区"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_lift_community"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -117,20 +117,20 @@
             android:layout_weight="2.5"
             android:text="详细地址"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_lift_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -147,20 +147,20 @@
             android:layout_weight="2.5"
             android:text="告警时间"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_alarm_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -168,7 +168,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -177,15 +177,15 @@
             android:layout_weight="2.5"
             android:text="告警事件"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_alarm_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
-            android:textSize="17sp" />
-        
+            android:textSize="17sp"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -193,20 +193,20 @@
             android:layout_weight="1.3"
             android:text="楼层"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_alarm_floor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="17sp" />
+            android:textSize="17sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -214,7 +214,7 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="40dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
@@ -223,13 +223,14 @@
             android:layout_weight="2.5"
             android:text="告警录音"
             android:textColor="@color/text_title_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7.5"
             android:gravity="center">
+
             <com.zhiitek.liftcontroller.views.StateChangeButton
                 android:id="@+id/scb_download_and_play_recording"
                 android:layout_width="wrap_content"
@@ -243,17 +244,43 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/dividing_deep_line_color" />
+        android:background="@color/dividing_deep_line_color"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:background="@color/module_backgroud_color"
+        android:gravity="center_vertical"
+        android:minHeight="40dp"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_show_alarm_photo"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
+            android:layout_marginLeft="8dp"
+            android:layout_weight="2.5"
+            android:text="告警图片"
+            android:textColor="@color/text_title_color"
+            android:textSize="16sp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7.5"
+            android:gravity="center">
+
+            <com.zhiitek.liftcontroller.views.StateChangeButton
+                android:id="@+id/scb_check_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/dividing_deep_line_color"/>
 
 </com.zhiitek.liftcontroller.views.percentlayout.PercentLinearLayout>

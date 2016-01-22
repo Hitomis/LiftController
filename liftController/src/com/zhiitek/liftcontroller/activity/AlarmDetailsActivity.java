@@ -1,12 +1,12 @@
 package com.zhiitek.liftcontroller.activity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhiitek.liftcontroller.R;
@@ -15,6 +15,7 @@ import com.zhiitek.liftcontroller.components.net.NetWorkCons;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
 import com.zhiitek.liftcontroller.utils.AppUtil;
 import com.zhiitek.liftcontroller.utils.SoundService;
+import com.zhiitek.liftcontroller.views.PinchImageDialog;
 import com.zhiitek.liftcontroller.views.StateChangeButton;
 import com.zhiitek.liftcontroller.views.SwipeFinishLayout;
 
@@ -25,12 +26,10 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 public class AlarmDetailsActivity extends BaseActivity{
-	
-	private ImageView ivShowPhoto;
-	
+
 	private ImageHelper imageHelper;
 
-	private StateChangeButton scbDownAndPlayRecording;
+	private StateChangeButton scbDownAndPlayRecording, scbCheckImage;
 
 	private AlarmInfo alarmInfo;
 
@@ -60,8 +59,8 @@ public class AlarmDetailsActivity extends BaseActivity{
 	@Override
 	protected void findViewById() {
 		setTitleBar("告警详情", null);
-		ivShowPhoto = (ImageView) findViewById(R.id.iv_show_alarm_photo);
 		scbDownAndPlayRecording = (StateChangeButton) findViewById(R.id.scb_download_and_play_recording);
+		scbCheckImage = (StateChangeButton) findViewById(R.id.scb_check_image);
 	}
 
 	@Override
@@ -91,6 +90,27 @@ public class AlarmDetailsActivity extends BaseActivity{
 						scbDownAndPlayRecording.setText("播放");
 					}
 				}
+			}
+		});
+
+		scbCheckImage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final PinchImageDialog pinchDialog = new PinchImageDialog(AlarmDetailsActivity.this);
+				pinchDialog.show();
+
+				String uri = String.format(NetWorkCons.downloadAlarmPhotoUrl,
+						getUserId(),
+						alarmInfo.getLiftNo(),
+						sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())),
+						3);
+				imageHelper.displayImage(uri, new ImageHelper.OnLoadCompleteListener() {
+					@Override
+					public void loadCompleteListener(Bitmap bitmap) {
+						pinchDialog.setPinchImageView(bitmap);
+
+					}
+				});
 			}
 		});
 	}
@@ -145,12 +165,8 @@ public class AlarmDetailsActivity extends BaseActivity{
 			}
 		}
 		if ("1".equals(alarmInfo.getAlarmPhoto())) { // 有告警图片
-			String uri = String.format(NetWorkCons.downloadAlarmPhotoUrl,
-					getUserId(), 
-					alarmInfo.getLiftNo(), 
-					sdf.format(AppUtil.stringToTime(alarmInfo.getAlarmTime())), 
-					3);
-			imageHelper.displayImage(uri, ivShowPhoto);
+			scbCheckImage.setVisibility(View.VISIBLE);
+			scbCheckImage.setText("查看");
 		}
 	}
 
