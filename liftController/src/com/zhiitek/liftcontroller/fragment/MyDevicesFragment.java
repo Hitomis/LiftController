@@ -68,7 +68,10 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 	protected final static int FLAG_GET_DEVICES_FAILURE = -1;
 
 	/** 更新设备的页码 */
-	private int currentIndexPage = 1;
+	private int currentUpdatePage = 1;
+
+	/** 当前最后一页数据的页码 */
+	private int currentLastPage = 1;
 	
 	/** 设备总数 */
 	private int totalDeviceCounts;
@@ -129,7 +132,8 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 	 * 获取设备列表
 	 */
 	private void getDevicesDataList() {
-		currentIndexPage = 1;
+		currentUpdatePage = 1;
+		currentLastPage = 1;
 		try {
 			netWorkHelper.execHttpNet(NetWorkCons.loginUrl, initGetDevicesJsonParameter(), netCallback);
 		} catch (JSONException e) {
@@ -157,7 +161,7 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 		JSONObject jsonParams = netWorkHelper.initJsonParameters(NetWorkCons.CMD_HTTP_LOGIN_AND_GET_LIFTINFOS);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_USERID, getUserID(), jsonParams);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_USERPWD, sharedPreferences.getString(AppConstant.KEY_PASSWORD, ""), jsonParams);
-		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentIndexPage, jsonParams);
+		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentUpdatePage, jsonParams);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_ROWS, AppConstant.PAGE_COUNT, jsonParams);
 		return jsonParams;
 	}
@@ -170,14 +174,18 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 	private void getDevicesListSucess(JSONObject resultJson) throws JSONException {
 		totalDeviceCounts = resultJson.getInt("total");//获取数据总条数
 		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的设备(共%d台)", totalDeviceCounts));// 更新title
-		if (currentIndexPage == 0) {
-			devicesInfoList.addAll(0, convertLiftInfo(resultJson.getJSONArray("infoList")));
+		if (currentUpdatePage == 0) {
+			if ("true".equals(resultJson.getString("flag"))) {// 服务器设备数据发生改变
+				devicesInfoList.clear();
+				devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
+				currentLastPage = 1;
+			}
 			waterStretchListView.stopRefresh(true);
-		} else if (currentIndexPage == 1) {
+		} else if (currentUpdatePage == 1) {
 			devicesInfoList.clear();//更新数据时显示第一页数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
 //			waterStretchListView.stopRefresh(true);
-		} else if (currentIndexPage > 1){//每次加载更多,直接添加数据
+		} else if (currentUpdatePage > 1){//每次加载更多,直接添加数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
 			waterStretchListView.stopLoadMore();
 		}
@@ -194,10 +202,10 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 	 * 获取设备列表失败
 	 */
 	private void getDevicesListFailed() {
-		if (currentIndexPage == 0) {
+		if (currentUpdatePage == 0) {
 			waterStretchListView.stopRefresh(false);
-		} else if (currentIndexPage > 1){
-			currentIndexPage--;
+		} else if (currentUpdatePage > 1){
+			currentLastPage--;
 			waterStretchListView.stopLoadMore();
 		}
 		showBlank(devicesInfoList);
@@ -381,13 +389,14 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 
 	@Override
 	public void onRefresh() {
-		currentIndexPage = 0;//刷新数据时,更新第一页内容
+		currentUpdatePage = 0;//刷新数据时,更新第一页内容
 		getDevicesDataListWithoutPrompt();
 	}
 
 	@Override
 	public void onLoadMore() {
-		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		currentLastPage++;//每次加载更多,都刷新下一页内容
+		currentUpdatePage = currentLastPage;
 		getDevicesDataListWithoutPrompt();
 	}
 

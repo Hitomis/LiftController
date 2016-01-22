@@ -1,7 +1,5 @@
 package com.zhiitek.liftcontroller.views;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -10,92 +8,74 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
 
+/**
+ * 自定义textview,修正换行问题
+ */
 public class CustomTextView extends TextView {
 
-	private ArrayList<String> contentList = new ArrayList<String>();
-	
-	private int lineMaxWidth;
+	private String text;
+	private float textShowWidth;
+
+	public CustomTextView(Context context) {
+		this(context, null);
+	}
 
 	public CustomTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
 	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-		int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-		int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-		int contentHeight = measureHeight(widthSize);
-		switch (heightMode)
-		{
-		case MeasureSpec.EXACTLY:
-			break;
-		case MeasureSpec.AT_MOST:
-			heightSize = contentHeight;
-			break;
-		case MeasureSpec.UNSPECIFIED:
-			heightSize = contentHeight;
-			break;
-		default:
-			break;
-		}
-		setMeasuredDimension(widthSize, heightSize);
-	}
-
-	private int measureHeight(int viewWidth) {
+	protected void onDraw(Canvas canvas) {
 		TextPaint paint = getPaint();
-		String text = getText().toString();
+		textShowWidth = this.getMeasuredWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight();
+		int lineCount = 0;
+		text = this.getText().toString();
+		if (text == null) return;
+		char[] textCharArray = text.toCharArray();
+		float drawedWidth = 0;
+		float charWidth;
 		Paint.FontMetrics fm = paint.getFontMetrics();
 		int textHeight = (int) (Math.ceil(fm.descent - fm.ascent));
-		int line=0;  
-		int istart=0;
-        int lineWidth=getCompoundPaddingLeft() + getCompoundPaddingRight();  
-        contentList.clear();
-        for (int i = 0; i < text.length(); i++)  
-        {  
-            char ch = text.charAt(i);  
-            String srt = String.valueOf(ch);  
-            float width = paint.measureText(srt);
-  
-            if (ch == 10){  
-                line++;
-                contentList.add(text.substring(istart, i));
-                istart = i + 1;
-                lineWidth = 0;
-            }else{  
-            	lineWidth += (int) width;
-                if (lineWidth > viewWidth){  
-                    line++;
-                    contentList.add(text.substring(istart, i));
-                    istart = i;
-                    i--;
-                    lineWidth = 0;
-                }else{
-                	if (lineWidth > lineMaxWidth) {
-                		lineMaxWidth = lineWidth;
-                	}
-                    if (i == (text.length() - 1)){  
-                        line++;
-                        contentList.add(text.substring(istart));
-                    }  
-                }  
-            }  
-        }
-		return (line)*textHeight + getCompoundPaddingTop() + getCompoundPaddingBottom();
-	}
-
-	@Override
-	protected void onDraw(Canvas canvas) {
-		if (contentList.size() > 0) {
-			TextPaint paint = getPaint();
-			Paint.FontMetrics fm = paint.getFontMetrics();
-			int textHeight = (int) (Math.ceil(fm.descent - fm.ascent));
-			int firstLinebaseY = (int) ((textHeight - (paint.descent() + paint.ascent())) / 2) + getCompoundPaddingTop();
-			float realX = getGravity() == Gravity.CENTER_HORIZONTAL ? (getWidth() - getCompoundPaddingLeft() - getCompoundPaddingRight() - lineMaxWidth)/2 : 0 + getCompoundPaddingLeft();
-			for (int i = 0, j = 0; i < contentList.size(); i++, j++)  
-	        {
-	            canvas.drawText(contentList.get(i), realX,  firstLinebaseY + (textHeight * j), getPaint());
-	        }
+		float firstLinebaseY = (int) ((textHeight - (paint.descent() + paint.ascent())) / 2) + getCompoundPaddingTop();
+		float realX = getCompoundPaddingLeft();
+		float lineMaxWidth = 0;
+		for (int i = 0; i < textCharArray.length; i++) {// 计算内容的长度及行数
+			charWidth = paint.measureText(textCharArray, i, 1);
+			if (textCharArray[i] == '\n') {
+				drawedWidth = 0;
+				lineCount++;
+				continue;
+			}
+			if (textShowWidth - drawedWidth < charWidth) {
+				drawedWidth = 0;
+				lineCount++;
+			}
+			drawedWidth += charWidth;
+			lineMaxWidth = lineMaxWidth < drawedWidth ? drawedWidth : lineMaxWidth;
+		}
+		int gravity = getGravity();
+		if ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) == Gravity.CENTER_HORIZONTAL) {
+			realX += (getWidth() - lineMaxWidth)/2;
+		}
+		if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.CENTER_VERTICAL) {
+			firstLinebaseY = ((getMeasuredHeight() - (lineCount + 1) * (fm.bottom - fm.top)) / 2 - fm.top);
+		}
+		drawedWidth = 0;
+		lineCount = 0;
+		for (int i = 0; i < textCharArray.length; i++) {
+			charWidth = paint.measureText(textCharArray, i, 1);
+			if (textCharArray[i] == '\n') {
+				lineCount++;
+				drawedWidth = 0;
+				continue;
+			}
+			if (textShowWidth - drawedWidth < charWidth) {
+				lineCount++;
+				drawedWidth = 0;
+			}
+			canvas.drawText(textCharArray, i, 1, realX + drawedWidth,
+					firstLinebaseY + lineCount * textHeight, paint);
+			drawedWidth += charWidth;
 		}
 	}
 }

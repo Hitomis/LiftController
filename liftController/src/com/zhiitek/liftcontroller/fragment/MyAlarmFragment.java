@@ -51,7 +51,11 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	private AlarmsInfoSearchDialog searchDialog;
 	
 	/** 更新告警的页码 */
-	private int currentIndexPage = 1;
+	private int currentUpdatePage = 1;
+
+	/** 当前最后一页数据的页码 */
+	private int currentLastPage = 1;
+
 	/** 告警总数 */
 	private int totalAlarmCounts;
 
@@ -95,7 +99,8 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	 */
 	private void getAlarmList() {
 		try {
-			currentIndexPage = 1;
+			currentUpdatePage = 1;
+			currentLastPage = 1;
 			netWorkHelper.execHttpNet(NetWorkCons.getAlarmUrl, initGetAlarmsJsonParameter(), netCallback);
 		} catch (JSONException e) {
 			getAlarmListFailed();
@@ -131,7 +136,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	private JSONObject initGetAlarmsJsonParameter() throws JSONException {
 		JSONObject jsonParams = netWorkHelper.initJsonParameters(NetWorkCons.CMD_HTTP_GET_DETAILS_ALARMLIST);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_USERID, getUserID(), jsonParams);
-		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentIndexPage, jsonParams);
+		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentUpdatePage, jsonParams);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_ROWS, AppConstant.PAGE_COUNT, jsonParams);
 		return jsonParams;
 	}
@@ -144,14 +149,17 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	private void getAlarmListSuccess(JSONObject resultJson)	throws JSONException {
 		totalAlarmCounts = resultJson.getInt(NetWorkCons.JSON_KEY_TOTAL);
 		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的告警(共%d条)", totalAlarmCounts));// 更新title
-		if (currentIndexPage == 0) {
+		if (currentUpdatePage == 0) {
+			if ("true".equals(resultJson.getString("flag"))) { // 此处服务器由于无法判断告警数据变化,因此会一直返回flag=true
+				alarmInfoList.clear();
+				alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
+				currentLastPage = 1;
+			}
 			waterStretchListView.stopRefresh(true);
-			alarmInfoList.addAll(0, convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
-		} else if (currentIndexPage == 1) {
-//			waterStretchListView.stopRefresh(true);
+		} else if (currentUpdatePage == 1) {
 			alarmInfoList.clear();
 			alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
-		} else if (currentIndexPage > 1) {
+		} else if (currentUpdatePage > 1) {
 			waterStretchListView.stopLoadMore();
 			alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
 		}
@@ -168,10 +176,10 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	 * 获取告警列表失败
 	 */
 	private void getAlarmListFailed() {
-		if (currentIndexPage == 0) {
+		if (currentUpdatePage == 0) {
 			waterStretchListView.stopRefresh(false);
-		} else if (currentIndexPage > 1){
-			currentIndexPage--;
+		} else if (currentUpdatePage > 1){
+			currentLastPage--;
 			waterStretchListView.stopLoadMore();
 		}
 		showBlank(alarmInfoList);
@@ -275,13 +283,14 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 
 	@Override
 	public void onRefresh() {
-		currentIndexPage = 0;//刷新数据时,更新最新的内容
+		currentUpdatePage = 0;//刷新数据时,更新最新的内容
 		getAlarmListWithoutPrompt();
 	}
 
 	@Override
 	public void onLoadMore() {
-		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		currentLastPage++;//每次加载更多,都刷新下一页内容
+		currentUpdatePage = currentLastPage;
 		getAlarmListWithoutPrompt();
 	}
 }

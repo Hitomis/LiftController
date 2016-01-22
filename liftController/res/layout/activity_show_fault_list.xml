@@ -15,15 +15,13 @@
    <com.zhiitek.liftcontroller.views.CustomFormCellView 
        android:id="@+id/task_title"
        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
-        android:minHeight="45dp"
-        android:orientation="horizontal"
         app1:header_layout_weight="0"
         app1:info_view_type="textview"
         app1:info_layout_weight="1"
-        app1:info_text_size="18sp"
+        app1:info_text_size="16sp"
         ></com.zhiitek.liftcontroller.views.CustomFormCellView>
    
    <View
@@ -38,7 +36,6 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="45dp"
-        android:orientation="horizontal"
         app1:info_view_type="textview"
         app1:header_text="创建时间"
         app1:info_text_size="16sp"
@@ -56,9 +53,9 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="45dp"
-        android:orientation="horizontal"
         app1:info_view_type="textview"
         app1:header_text="地址"
+       app1:info_text_size="16sp"
         ></com.zhiitek.liftcontroller.views.CustomFormCellView>
    <View
         android:layout_width="match_parent"
@@ -72,9 +69,9 @@
         android:background="@color/module_backgroud_color"
         android:gravity="center_vertical"
         android:minHeight="45dp"
-        android:orientation="horizontal"
         app1:info_view_type="textview"
         app1:header_text="备注"
+       app1:info_text_size="16sp"
         ></com.zhiitek.liftcontroller.views.CustomFormCellView>
 
    

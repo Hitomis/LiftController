@@ -43,6 +43,11 @@
         <attr name="info_text" format="string" />
         <attr name="info_text_color" format="color" />
         <attr name="info_text_size" format="dimension" />
+        <attr name="info_gravity">
+            <flag name="center" value="17" />
+            <flag name="center_vertical" value="16" />
+            <flag name="center_horizontal" value="1" />
+        </attr>
     </declare-styleable>
     
     <!-- WheelPicker -->
