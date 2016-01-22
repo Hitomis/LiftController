@@ -40,7 +40,10 @@ public class NoticeMainActivity extends BaseActivity implements WaterStretchList
 	
 	private List<NoticeInfo> noticeList = new ArrayList<NoticeInfo>();
 	
-	private int currentIndexPage = 1;
+	private int currentUpdatePage = 1;
+
+	/** 当前最后一页数据的页码 */
+	private int currentLastPage = 1;
 	
 	private int totalNoticeCount;
 	
@@ -108,7 +111,7 @@ public class NoticeMainActivity extends BaseActivity implements WaterStretchList
 		try {
 			jsonParms = netWorkHelper.initJsonParameters(NetWorkCons.CMD_HTTP_GET_NOTICE_LIST);
 			netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_USERID, getUserId(), jsonParms);
-			netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentIndexPage, jsonParms);
+			netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, currentUpdatePage, jsonParms);
 			netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_ROWS, AppConstant.PAGE_COUNT, jsonParms);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -118,13 +121,14 @@ public class NoticeMainActivity extends BaseActivity implements WaterStretchList
 
 	@Override
 	public void onRefresh() {
-		currentIndexPage = 0;//刷新数据时,更新第一页内容
+		currentUpdatePage = 0;//刷新数据时,更新第一页内容
 		getNoticeDataListWithoutPrompt();
 	}
 
 	@Override
 	public void onLoadMore() {
-		currentIndexPage++;//每次加载更多,都刷新下一页内容
+		currentLastPage++;//每次加载更多,都刷新下一页内容
+		currentUpdatePage = currentLastPage;
 		getNoticeDataListWithoutPrompt();
 	}
 
@@ -164,16 +168,15 @@ public class NoticeMainActivity extends BaseActivity implements WaterStretchList
 
 	private void inflateListViewData(JSONObject resultJson) throws JSONException {
 		totalNoticeCount = resultJson.getInt("total");//获取数据总条数	
-		if (currentIndexPage == 0) {
+		if (currentUpdatePage == 0) {
 			noticeList.addAll(0, parseNoticeData(resultJson));
 			waterStretchListView.stopRefresh(true);
 			noticeAdapterHelper.notifyDataSetChanged();
-		} else if (currentIndexPage == 1) {
+		} else if (currentUpdatePage == 1) {
 			noticeList.clear();
 			noticeList.addAll(parseNoticeData(resultJson));
-//			waterStretchListView.stopRefresh(true);
 			waterStretchListView.setAdapter(noticeAdapterHelper);
-		} else if (currentIndexPage > 1){//每次加载更多,直接添加数据
+		} else if (currentUpdatePage > 1){//每次加载更多,直接添加数据
 			noticeList.addAll(parseNoticeData(resultJson));
 			waterStretchListView.stopLoadMore();
 			noticeAdapterHelper.notifyDataSetChanged();

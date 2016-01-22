@@ -44,7 +44,8 @@ public class CustomFormCellView extends LinearLayout{
 	//表格单元头信息
 	private TextView headerTextView;
 	//表格单元显示信息
-	private WrapTextView infoTextView;
+//	private WrapTextView infoTextView;
+	private CustomTextView infoTextView;
 	//表格单元输入信息
 	private EditText infoEditText;
 	private ToggleButton infoToggleButton;
@@ -80,6 +81,7 @@ public class CustomFormCellView extends LinearLayout{
 	float infoWeight;
 	int infoTextColor;
 	float infoTextSize;
+	int infoGravity;
 	Drawable infoBackground = null;
 
 
@@ -111,6 +113,7 @@ public class CustomFormCellView extends LinearLayout{
 		infoTextSize = a.getDimension(R.styleable.CustomFormCellView_info_text_size, DensityUtil.sp2px(context, 17));
 		infoViewType = a.getInt(R.styleable.CustomFormCellView_info_view_type, TYPE_DEFAULT);
 		infoBackground = a.getDrawable(R.styleable.CustomFormCellView_info_background);
+		infoGravity = a.getInt(R.styleable.CustomFormCellView_info_gravity, Gravity.CENTER_VERTICAL);
 		a.recycle();
 		
 		setOrientation(LinearLayout.HORIZONTAL);
@@ -127,9 +130,9 @@ public class CustomFormCellView extends LinearLayout{
 		removeAllViews();
 		setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
 		if (infoViewType == TYPE_EDITTEXT) {
-			 setEdittextAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, DensityUtil.sp2px(context, 17), infoBackground);
+			 setEdittextAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, infoTextSize, infoBackground);
 		 } else if (infoViewType == TYPE_TEXTVIEW) {
-			 setWrapTextViewAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, DensityUtil.sp2px(context, 17));
+			 setWrapTextViewAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, infoTextSize);
 		 } else if (infoViewType == TYPE_TOGGLEBUTTON) {
 			 setToggleButtonAttributes(context, infoMarginLeft, 1.875f);
 		 }
@@ -156,7 +159,7 @@ public class CustomFormCellView extends LinearLayout{
 	public void setWrapTextViewAttributes(Context context, float marginLeft,
 			Float weight, String text, int textColor, float textSize) {
 		if (infoTextView == null) {
-			infoTextView = new WrapTextView(context);
+			infoTextView = new CustomTextView(context);
 		}
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
@@ -164,12 +167,10 @@ public class CustomFormCellView extends LinearLayout{
 		layoutParams.gravity = Gravity.CENTER_VERTICAL;
 		infoTextView.setLayoutParams(layoutParams);
 		infoTextView.setTextColor(textColor);
-		infoTextView.setGravity(Gravity.CENTER);
+		infoTextView.setGravity(infoGravity);
 		infoTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		infoTextView.setPadding(0, 0, 0, 0);
-		if (text != null) {
-			infoTextView.setWrapText(text);
-		}
+		infoTextView.setText(text);
 		addView(infoTextView);
 	}
 
@@ -177,6 +178,7 @@ public class CustomFormCellView extends LinearLayout{
 	public void setEdittextAttributes(Context context, float marginLeft,
 			Float weight, String text, int textColor, float textSize,
 			Drawable drawable) {
+
 		if (infoEditText == null) {
 			infoEditText = new EditText(context);
 		}
@@ -187,7 +189,7 @@ public class CustomFormCellView extends LinearLayout{
 		infoEditText.setBackground(drawable);
 		infoEditText.setLayoutParams(layoutParams);
 		infoEditText.setTextColor(textColor);
-		infoEditText.setGravity(Gravity.CENTER_VERTICAL);
+		infoEditText.setGravity(infoGravity);
 		infoEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		infoEditText.setText(text);
 		infoEditText.setPadding(0, 0, 0, 0);
@@ -242,7 +244,7 @@ public class CustomFormCellView extends LinearLayout{
 		return headerTextView;
 	}
 
-	public WrapTextView getInfoTextView() {
+	public CustomTextView getInfoTextView() {
 		return infoTextView;
 	}
 	
@@ -261,6 +263,6 @@ public class CustomFormCellView extends LinearLayout{
 	
 	public void setInfoText(String text) {
 		infoText = text;
-		infoTextView.setWrapText(text);
+		infoTextView.setText(text);
 	}
 }
