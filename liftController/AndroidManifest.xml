@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhiitek.liftcontroller"
     android:versionCode="1"
-    android:versionName="1.31">
+    android:versionName="1.32">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -102,6 +102,7 @@
         <activity
             android:name=".activity.ConfigLiftActivity"
             android:theme="@style/SwipeFinishActivityTheme"
+            android:windowSoftInputMode="adjustPan"
             android:configChanges="keyboardHidden|orientation|locale|navigation"
             android:screenOrientation="portrait"></activity>
         <activity

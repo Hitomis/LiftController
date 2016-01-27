@@ -1,12 +1,12 @@
 package com.zhiitek.liftcontroller.components.net.client;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.content.Context;
+import android.widget.Toast;
 
 import com.zhiitek.liftcontroller.utils.AppConstant;
 
-import android.content.Context;
-import android.widget.Toast;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 
@@ -107,6 +107,8 @@ public class ZTResponse {
 			} catch (JSONException e) {
 				responseCode = RESP_JSON_ERROR;
 			}
+		} else if (entity.contains("code")){// 重启设备时返回的数据格式{"code":*}
+
 		} else {
 			responseCode = RESP_JSON_ERROR;
 		}

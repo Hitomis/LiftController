@@ -176,6 +176,7 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的设备(共%d台)", totalDeviceCounts));// 更新title
 		if (currentUpdatePage == 0) {
 			if ("true".equals(resultJson.getString("flag"))) {// 服务器设备数据发生改变
+				// flag=true时,传过来的数据是第一页数据,重新加载;否则不进行数据操作
 				devicesInfoList.clear();
 				devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
 				currentLastPage = 1;
@@ -184,7 +185,6 @@ public class MyDevicesFragment extends BaseFragment implements OnClickListener, 
 		} else if (currentUpdatePage == 1) {
 			devicesInfoList.clear();//更新数据时显示第一页数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
-//			waterStretchListView.stopRefresh(true);
 		} else if (currentUpdatePage > 1){//每次加载更多,直接添加数据
 			devicesInfoList.addAll(convertLiftInfo(resultJson.getJSONArray("infoList")));
 			waterStretchListView.stopLoadMore();

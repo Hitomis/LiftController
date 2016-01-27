@@ -148,7 +148,7 @@ public class MyTaskFragment extends BaseFragment implements WaterStretchListView
 		JSONObject jsonParams = netWorkHelper.initJsonParameters(NetWorkCons.CMD_HTTP_GET_TASKLIST);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_USERID, getUserID(), jsonParams);
 		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_PAGE, 1, jsonParams);
-		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_ROWS, 100, jsonParams);
+		netWorkHelper.setDataInResponseJson(NetWorkCons.JSON_KEY_ROWS, 1000, jsonParams);
 		return jsonParams;
 	}
 	
@@ -253,7 +253,7 @@ public class MyTaskFragment extends BaseFragment implements WaterStretchListView
 									break;
 								}
 							}
-							new UpdateCountsTask(getActivity().getApplicationContext()).updateCount();
+							new UpdateCountsTask(getActivity()).updateCount();
 							resetBtnStatus();
 							mAdapterHelper.notifyDataSetChanged();
 							showBlank(mTaskInfos);

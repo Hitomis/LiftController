@@ -126,15 +126,22 @@ public class CustomFormCellView extends LinearLayout{
 		addViews();
 	}
 
+	/**
+	 * 根据类型,添加view
+	 */
 	private void addViews() {
 		removeAllViews();
 		setTextViewAttributes(context, headerMarginLeft, headerWeight, headerText, headerTextColor, headerTextSize);
+		addView(headerTextView);
 		if (infoViewType == TYPE_EDITTEXT) {
 			 setEdittextAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, infoTextSize, infoBackground);
+			addView(infoEditText);
 		 } else if (infoViewType == TYPE_TEXTVIEW) {
 			 setWrapTextViewAttributes(context, infoMarginLeft, DEFAULT_INFOVIEW_WEIGHT, infoText, Color.BLACK, infoTextSize);
+			addView(infoTextView);
 		 } else if (infoViewType == TYPE_TOGGLEBUTTON) {
 			 setToggleButtonAttributes(context, infoMarginLeft, 1.875f);
+			addView(infoToggleButton);
 		 }
 	}
 
@@ -153,7 +160,6 @@ public class CustomFormCellView extends LinearLayout{
 		headerTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		headerTextView.setPadding(0, 0, 0, 0);
 		headerTextView.setText(text);
-		addView(headerTextView);
 	}
 
 	public void setWrapTextViewAttributes(Context context, float marginLeft,
@@ -171,7 +177,6 @@ public class CustomFormCellView extends LinearLayout{
 		infoTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		infoTextView.setPadding(0, 0, 0, 0);
 		infoTextView.setText(text);
-		addView(infoTextView);
 	}
 
 	@SuppressLint("NewApi")
@@ -193,7 +198,6 @@ public class CustomFormCellView extends LinearLayout{
 		infoEditText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 		infoEditText.setText(text);
 		infoEditText.setPadding(0, 0, 0, 0);
-		addView(infoEditText);
 	}
 	
 	public void setToggleButtonAttributes(Context context, float marginLeft, Float weight) {
@@ -207,7 +211,6 @@ public class CustomFormCellView extends LinearLayout{
 		infoEditText.setLayoutParams(layoutParams);
 		infoEditText.setGravity(Gravity.CENTER_VERTICAL);
 		infoEditText.setPadding(0, 0, 0, 0);
-		addView(infoToggleButton);
 	}
 	 
 	 @Override

@@ -1,8 +1,5 @@
 package com.zhiitek.liftcontroller.components.net;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.zhiitek.liftcontroller.components.net.NetConnectionFactory.NetType;
@@ -11,6 +8,9 @@ import com.zhiitek.liftcontroller.components.net.client.RequestConfig.HttpMethod
 import com.zhiitek.liftcontroller.components.net.client.ZTRequest;
 import com.zhiitek.liftcontroller.components.net.client.ZTRequest.Builder;
 import com.zhiitek.liftcontroller.components.net.client.ZTResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 

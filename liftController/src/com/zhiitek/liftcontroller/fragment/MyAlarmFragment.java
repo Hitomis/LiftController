@@ -24,6 +24,7 @@ import com.zhiitek.liftcontroller.adapter.ViewHolder;
 import com.zhiitek.liftcontroller.components.net.NetWorkCons;
 import com.zhiitek.liftcontroller.components.net.client.NetCallback;
 import com.zhiitek.liftcontroller.model.AlarmInfo;
+import com.zhiitek.liftcontroller.service.task.UpdateCountsTask;
 import com.zhiitek.liftcontroller.utils.AppConstant;
 import com.zhiitek.liftcontroller.views.AlarmsInfoSearchDialog;
 import com.zhiitek.liftcontroller.views.WaterStretchListView;
@@ -101,6 +102,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 		try {
 			currentUpdatePage = 1;
 			currentLastPage = 1;
+			new UpdateCountsTask(getActivity()).updateCount();
 			netWorkHelper.execHttpNet(NetWorkCons.getAlarmUrl, initGetAlarmsJsonParameter(), netCallback);
 		} catch (JSONException e) {
 			getAlarmListFailed();
@@ -112,6 +114,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 	 */
 	private void getAlarmListWithoutPrompt() {
 		try {
+			new UpdateCountsTask(getActivity()).updateCount();
 			netWorkHelper.execHttpNetWithoutPrompt(NetWorkCons.getAlarmUrl, initGetAlarmsJsonParameter(), netCallback);
 		} catch (JSONException e) {
 			getAlarmListFailed();
@@ -151,6 +154,7 @@ public class MyAlarmFragment extends BaseFragment implements OnClickListener, Wa
 		((TextView)(getActivity().findViewById(R.id.title_name))).setText(String.format("我的告警(共%d条)", totalAlarmCounts));// 更新title
 		if (currentUpdatePage == 0) {
 			if ("true".equals(resultJson.getString("flag"))) { // 此处服务器由于无法判断告警数据变化,因此会一直返回flag=true
+				// flag=true时,传过来的数据是第一页数据,重新加载;否则不进行数据操作
 				alarmInfoList.clear();
 				alarmInfoList.addAll(convertLiftInfo(resultJson.getJSONArray(NetWorkCons.JSON_KEY_FAULTLIST)));
 				currentLastPage = 1;

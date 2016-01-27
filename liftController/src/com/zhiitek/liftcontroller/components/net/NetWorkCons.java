@@ -196,7 +196,7 @@ public class NetWorkCons {
 	/** 自定义的Host类型 */
 	private static final int HOST_ENVIRTYPE_MINE = 3;
 	/** 当前的Host类型 */
-	private static final int HOST_ENVIRTYPE_CURRENT = HOST_ENVIRTYPE_TEST;
+	private static final int HOST_ENVIRTYPE_CURRENT = HOST_ENVIRTYPE_CLOUD;
 	/** URL前缀 */
 	private static final String URL_PREFIX = "http://";
 	/** Action前缀 */
@@ -242,7 +242,7 @@ public class NetWorkCons {
 			host = "www.zhiitek.com:8081";
 			break;
 		case HOST_ENVIRTYPE_MINE:
-			host= "136.158.27.183:8080";
+			host= "136.158.27.30:8080";
 			break;
 		default:
 			break;

@@ -1,5 +1,8 @@
 package com.zhiitek.liftcontroller.components.net;
 
+import com.zhiitek.liftcontroller.components.net.client.RequestConfig;
+import com.zhiitek.liftcontroller.components.net.client.ZTResponse;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,9 +14,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-
-import com.zhiitek.liftcontroller.components.net.client.RequestConfig;
-import com.zhiitek.liftcontroller.components.net.client.ZTResponse;
 
 /**
  * 
